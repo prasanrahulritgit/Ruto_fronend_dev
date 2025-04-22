@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 import { FaVideo, FaMicrophone, FaCamera, FaThermometerHalf, FaBug, FaCogs, FaUsb } from 'react-icons/fa';
 
@@ -8,13 +9,13 @@ const Sidebar = () => {
       <div className={styles.logo}>RUTOMATRIX</div>
       <nav className={styles.menu}>
         <ul>
-          <li><FaVideo /> Preview</li>
-          <li><FaMicrophone /> Audio</li>
-          <li><FaCamera /> Camera</li>
-          <li><FaThermometerHalf /> Thermal</li>
-          <li><FaUsb /> USB/IP</li>
-          <li><FaBug /> Debugger</li>
-          <li><FaCogs /> Settings</li>
+          <li><Link to="/"><FaVideo /> Preview</Link></li>
+          <li><Link to="/audio"><FaMicrophone /> Audio</Link></li>
+          <li><Link to="/camera"><FaCamera /> Camera</Link></li>
+          <li><Link to="/thermal"><FaThermometerHalf /> Thermal</Link></li>
+          <li><Link to="/usb"><FaUsb /> USB/IP</Link></li>
+          <li><Link to="/debugger"><FaBug /> Debugger</Link></li>
+          <li><Link to="/settings"><FaCogs /> Settings</Link></li>
         </ul>
       </nav>
     </div>
