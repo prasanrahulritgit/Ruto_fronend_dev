@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
-import Audio from './pages/Audio';
+import Audio from './pages/Audio/Audio';
 // Add other page imports here
 
 function App() {
