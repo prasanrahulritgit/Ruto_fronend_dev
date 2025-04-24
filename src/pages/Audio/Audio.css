@@ -1,6 +1,6 @@
 .audio-container {
     height: 100vh;
-    width: 100vw;
+    width: 93vw;
     background-color: #121212;
     color: white;
     padding: 1rem 2rem;
@@ -17,13 +17,13 @@
   }
   
   .stream-btn {
-    background-color: orange;
+    background-color: #ff6a00;
     border: none;
     padding: 0.5rem 1rem;
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
-    color: black;
+    color: white;
   }
   
   .view-select {
@@ -55,7 +55,7 @@
   
   .monitor input[type="range"] {
     flex: 1;
-    accent-color: orange;
+    accent-color: #ff6a00;
   }
   
   .device-section {
@@ -89,8 +89,8 @@
   }
   
   .device-box button.selected {
-    background-color: orange;
-    color: black;
+    background-color: #ff6a00;
+    color: white;
     font-weight: bold;
   }
   

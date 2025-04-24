@@ -1,7 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './components/Sidebar/Sidebar';
+import Navbar from './components/Navbar/Navbar';
 import Audio from './pages/Audio/Audio';
+import Thermal from './pages/Thermal/Thermal';
 // Add other page imports here
 
 function App() {
@@ -9,10 +11,16 @@ function App() {
     <Router>
       <div style={{ display: 'flex' }}>
         <Sidebar />
-        <Routes>
-          <Route path="/audio" element={<Audio />} />
-          {/* Add more routes for camera, debugger, etc. */}
-        </Routes>
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', height: '100vh' }}>
+          <Navbar />
+          <div style={{ padding: '1rem', flex: 1, overflowY: 'auto' }}>
+            <Routes>
+              <Route path="/audio" element={<Audio />} />
+              <Route path="/thermal" element={<Thermal />} />
+              {/* Add more routes here */}
+            </Routes>
+          </div>
+        </div>
       </div>
     </Router>
   );
