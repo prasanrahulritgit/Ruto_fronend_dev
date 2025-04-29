@@ -3,25 +3,27 @@ import { NavLink } from 'react-router-dom';
 import {
   Video,
   Volume2,
-  Camera,
-  Database,
-  Cpu,
+  Camera as CameraIcon,
+  ThermometerSun,
+  Usb,
   Code,
   Share2,
-  LayoutGrid
+  LayoutGrid,
+  Brain
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
   const menuItems = [
-    { to: '/', label: 'Streamer', icon: <Video size={18} /> },
-    { to: '/audio', label: 'Audio', icon: <Volume2 size={18} /> },
-    { to: '/camera', label: 'Camera', icon: <Camera size={18} /> },
-    { to: '/thermal', label: 'Thermal', icon: <Database size={18} /> },
-    { to: '/usb', label: 'USB IP', icon: <Cpu size={18} /> },
-    { to: '/debugger', label: 'Debugger', icon: <Code size={18} /> },
-    { to: '/protocol', label: 'Protocol', icon: <Share2 size={18} /> },
-    { to: '/settings', label: 'Settings', icon: <LayoutGrid size={18} /> },
+    { to: '/',           label: 'Streamer',   icon: <Video size={18} /> },
+    { to: '/audio',      label: 'Audio',      icon: <Volume2 size={18} /> },
+    { to: '/camera',     label: 'Camera',     icon: <CameraIcon size={18} /> },
+    { to: '/thermal',    label: 'Thermal',    icon: <ThermometerSun size={18} /> },
+    { to: '/usb',        label: 'USB IP',     icon: <Usb size={18} /> },
+    { to: '/debugger',   label: 'Debugger',   icon: <Code size={18} /> },
+    { to: '/protocol',   label: 'Protocol',   icon: <Share2 size={18} /> },
+    { to: '/ruto-valut', label: 'Ruto Valut', icon: <Brain size={18} /> },
+    { to: '/settings',   label: 'Settings',   icon: <LayoutGrid size={18} /> },
   ];
 
   return (
@@ -29,8 +31,8 @@ const Sidebar = () => {
       <div className={styles.spacer} />
       <nav className={styles.menu}>
         <ul>
-          {menuItems.map((item, index) => (
-            <li key={index}>
+          {menuItems.map((item, i) => (
+            <li key={i}>
               <NavLink
                 to={item.to}
                 className={({ isActive }) =>

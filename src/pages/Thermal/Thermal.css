@@ -1,4 +1,9 @@
-
+.thermal-container {
+    display: flex;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #6ac0ff;
+  }
 .thermal-header {
     display: flex;
     align-items: center;

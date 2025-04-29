@@ -3,34 +3,65 @@ import { useLocation } from 'react-router-dom';
 import {
   Video,
   Volume2,
-  Camera,
-  Database,
-  Cpu,
+  Camera as CameraIcon,
+  Usb,
   Code,
   Share2,
-  LayoutGrid
+  LayoutGrid,
+  Brain,
+  ThermometerSun
 } from 'lucide-react';
+
+import RutomatrixLogo from '../../assets/rutomatrix.png';
+import TessolveLogo from '../../assets/tessolve.png';
+
 import styles from './Navbar.module.css';
 
 const routeIcons = {
-  '/': <Video size={20} color="#fff" />,
-  '/streamer': <Video size={20} color="#fff" />,
-  '/audio': <Volume2 size={20} color="#fff" />,
-  '/camera': <Camera size={20} color="#fff" />,
-  '/thermal': <Database size={20} color="#fff" />,
-  '/usb': <Cpu size={20} color="#fff" />,
-  '/debugger': <Code size={20} color="#fff" />,
-  '/protocol': <Share2 size={20} color="#fff" />,
-  '/settings': <LayoutGrid size={20} color="#fff" />,
+  '/':            <Video size={20} color="#fff" />,
+  '/streamer':    <Video size={20} color="#fff" />,
+  '/audio':       <Volume2 size={20} color="#fff" />,
+  '/camera':      <CameraIcon size={20} color="#fff" />,
+  '/thermal':     <ThermometerSun size={20} color="#fff" />,
+  '/usb':         <Usb size={20} color="#fff" />,
+  '/debugger':    <Code size={20} color="#fff" />,
+  '/protocol':    <Share2 size={20} color="#fff" />,
+  '/ruto-valut':  <Brain size={20} color="#fff" />,
+  '/settings':    <LayoutGrid size={20} color="#fff" />,
 };
 
 const Navbar = () => {
   const location = useLocation();
   const icon = routeIcons[location.pathname] || <Video size={20} color="#fff" />;
 
+  // Functions to handle clicks
+  const openRutomatrix = () => {
+    window.open('https://embedded.tessolve.com/rutomatrix/', '_blank');
+  };
+
+  const openTessolve = () => {
+    window.open('https://www.tessolve.com/', '_blank');
+  };
+
   return (
     <div className={styles.navbar}>
-      {icon}
+      <img
+        src={RutomatrixLogo}
+        alt="Rutomatrix Logo"
+        className={styles.logo}
+        onClick={openRutomatrix}
+        style={{ cursor: 'pointer' }}
+      />
+      <div className={styles.iconContainer}>
+        {icon}
+      </div>
+      <img
+        src={TessolveLogo}
+        alt="Tessolve Logo"
+        className={styles.logo}
+        onClick={openTessolve}
+        style={{ cursor: 'pointer', marginLeft: 'auto' }}
+      />
     </div>
   );
 };

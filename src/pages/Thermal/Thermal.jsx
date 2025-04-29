@@ -99,7 +99,7 @@ const Thermal = () => {
         <div className="thermal-header">
           <h2>Thermal Visualization</h2>
           <div className="thermal-controls">
-            <button className="thermal-button">Capture</button>
+            <button className="thermal-button">📸 Capture</button>
             <button className="thermal-button">Export</button>
           </div>
         </div>

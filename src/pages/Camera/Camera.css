@@ -1,0 +1,142 @@
+.camera-container {
+    display: flex;
+    height: 100%;
+    background-color: #1e1e1e;
+    color: #6ac0ff;
+  }
+  
+  /* Left: video & capture */
+  .camera-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+  }
+  
+  .camera-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .camera-controls {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .camera-select {
+    background-color: #2a2a2a;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .camera-capture-button {
+    background-color: #ff6a00;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .camera-capture-button:hover {
+    background-color: #e65c00;
+  }
+  
+  .camera-feed {
+    position: relative;
+    background-color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #333;
+    margin-bottom: 1rem;
+  }
+  
+  .camera-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #777;
+    cursor: pointer;
+  }
+  
+  .camera-placeholder svg {
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+  }
+  
+  .camera-stream {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Right: servo controls */
+  .servo-panel {
+    width: 240px;
+    padding: 1rem;
+    background-color: #2a2a2a;
+    border-left: 2px solid #333;
+  }
+  
+  .servo-panel h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+  
+  .servo-control {
+    margin-bottom: 1.5rem;
+    color: white;
+    
+  }
+  
+  .servo-control label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .servo-control input[type="range"] {
+    width: 100%;
+    height: 6px;
+    background: #333;
+    border-radius: 3px;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+  }
+  
+  .servo-control input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #28a745;
+    cursor: pointer;
+  }
+  
+  /* Responsive: stack on small screens */
+  @media (max-width: 768px) {
+    .camera-container {
+      flex-direction: column;
+    }
+    .servo-panel {
+      width: 100%;
+      border-left: none;
+      border-top: 2px solid #333;
+    }
+  }
+  
