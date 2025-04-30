@@ -12,7 +12,7 @@ import {
   ThermometerSun
 } from 'lucide-react';
 
-import RutomatrixLogo from '../../assets/rutomatrix.png';
+import RutomatrixLogo from '../../assets/RutoMatrix_Nonbackground.png';
 import TessolveLogo from '../../assets/tessolve.png';
 
 import styles from './Navbar.module.css';
@@ -26,7 +26,7 @@ const routeIcons = {
   '/usb':         <Usb size={20} color="#fff" />,
   '/debugger':    <Code size={20} color="#fff" />,
   '/protocol':    <Share2 size={20} color="#fff" />,
-  '/ruto-valut':  <Brain size={20} color="#fff" />,
+  '/ruto-vault':  <Brain size={20} color="#fff" />,
   '/settings':    <LayoutGrid size={20} color="#fff" />,
 };
 

@@ -1,7 +1,7 @@
 .container {
     flex: 1;
     background-color: #1e1e1e;
-    color: white;
+    color: #6ac0ff;
     padding: 1rem;
   }
   
@@ -12,7 +12,7 @@
   }
   
   .record, .capture {
-    background-color: orange;
+    background-color:#ff6a00;
     color: white;
     border: none;
     padding: 0.5rem 1rem;

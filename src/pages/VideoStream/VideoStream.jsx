@@ -8,7 +8,7 @@ const VideoStream = () => {
         <h2>Video Stream</h2>
         <div>
           <button className={styles.record}>🔴 Record</button>
-          <button className={styles.capture}>➕ Capture</button>
+          <button className={styles.capture}>📸 Capture</button>
         </div>
       </div>
       <div className={styles.video}>

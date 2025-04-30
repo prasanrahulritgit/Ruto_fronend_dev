@@ -1,0 +1,91 @@
+/* Container for the entire device list page */
+.device-list-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: #121212;
+  color: #6ac0ff;
+  padding: 2rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+}
+
+/* Header title */
+.device-list-header {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: white;
+}
+
+/* Sorting dropdown */
+.device-sort {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%; /* Ensure it takes full width */
+  max-width: 600px; /* Optional: restrict max width of the dropdown */
+}
+
+/* Device grid and cards adjustments */
+.device-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center; /* Center devices horizontally */
+  width: 100%; /* Ensure it takes full width */
+  max-width: 1200px; /* Optional: restrict max width of the grid */
+}
+
+/* Individual device card */
+.device-card {
+  background-color: #1e1e1e;
+  border: 2px solid #2a2a2a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 280px;
+  color: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.device-card:hover {
+  border-color: #ff6a00;
+  transform: translateY(-3px);
+}
+
+/* Device information text */
+.device-ip {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #6ac0ff;
+  margin-bottom: 0.75rem;
+}
+
+.device-info {
+  font-size: 0.95rem;
+  margin: 0.2rem 0;
+  color: #cccccc;
+}
+
+/* Launch button */
+.launch-btn {
+  margin-top: 1.5rem;
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+  padding: 0.75rem 1rem;
+  width: 100%;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.launch-btn:hover {
+  background-color: #e65c00;
+}
