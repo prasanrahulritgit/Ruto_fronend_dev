@@ -2,7 +2,7 @@
     display: flex;
     height: 100%;
     background-color: #1e1e1e;
-    color: #6ac0ff;
+    color: #1281d6;
   }
 .thermal-header {
     display: flex;
@@ -195,7 +195,7 @@
 }
 
 .thermal-low {
-    color: #6bc5ff;
+    color: #1281d6;
 }
 
 .thermal-avg {

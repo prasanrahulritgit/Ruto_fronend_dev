@@ -9,7 +9,6 @@
     padding: 0;
     background: #f0f2f5;
   }
-  
   /* Container split exactly 50/50 */
   .login-container {
     display: flex;
@@ -17,20 +16,19 @@
     height: 100%;
     max-width: none;
   }
-  
   /* Left Panel: 50% width, full height */
   .left-panel {
-    width: 50%;
+    width: 40%;
     height: 100%;
     padding: 60px;
     color: white;
     background: linear-gradient(135deg, #1f41ff, #f15300);
     display: flex;
     flex-direction: column;
-    justify-content: center;
     position: relative;
+    justify-content: center;
+    bottom: 50px;
   }
-  
   /* Typography for left panel */
   .left-panel h1 {
     font-size: 32px;
@@ -38,30 +36,25 @@
     font-weight: bold;
     color: white;
   }
-  
   .left-panel span {
     color: #fff;
     font-weight: bold;
   }
-  
   .left-panel p {
     font-size: 16px;
     margin-bottom: 20px;
     line-height: 1.5;
     color: white;
   }
-  
   .left-panel ul {
     list-style: none;
     padding: 0;
   }
-  
   .left-panel li {
     margin: 8px 0;
     font-size: 15px;
     color: white;
   }
-  
   /* Right Panel: 50% width, full height */
   .right-panel {
     flex: 1;
@@ -72,18 +65,12 @@
     padding: 40px;
     position: relative; /* Important for absolutely positioning inside */
   }
-  
   .center-logo {
-    width: 200px;
+    width: 180px;
     height: auto;
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
     z-index: 10;
   }
-  
-  
+
   /* Form card styling */
   .form-card {
     background-color: #1c1c1c;
@@ -95,66 +82,58 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     margin-top: 120px; /* Ensures the form is placed correctly */
   }
-  
   /* Tab buttons */
   .tab-buttons {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
-    width: 100%;
+    width: 98%;
   }
-  
   .tab-buttons button {
     flex: 1;
     padding: 12px;
-    margin-right: 10px;
-    background: #333;
+    background: #5d5d5d;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease;
+    font-weight: 500;
+    border-radius: 2px;
   }
-  
   .tab-buttons button.active {
     background: #ff6a00;
     color: white;
   }
-  
   .tab-buttons button:hover {
-    background: #ff8c33;
+    background: #6f6d6d;
   }
-  
   /* Form inputs */
   form input {
     width: 90%;
     padding: 12px;
     margin-top: 12px;
-    border-radius: 5px;
-    border-color: #7c7c7c;
+    border-radius: 8px;
     background: #2c2c2c;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     transition: background 0.3s ease;
+    border: solid 0.5px #727272;
   }
-  
   form input:focus {
     background: #3c3c3c;
     outline: none;
   }
-  
   /* Error message */
   .error {
     color: #ff6b6b;
     margin-top: 10px;
     font-size: 14px;
   }
-  
   /* Submit button */
   .submit-btn {
-    width: 98%;
+    width: 99%;
     margin-top: 18px;
-    background-color: #ff6a00;
+    background-color: #1281d6;
     color: white;
     border: none;
     padding: 14px;
@@ -164,21 +143,17 @@
     font-size: 16px;
     transition: background 0.3s ease;
   }
-  
   .submit-btn:hover {
     background-color: #ff8c33;
   }
-  
   /* Centering logo on right panel */
   .right-panel .center-logo {
-    top: 25%;
+    top: 23%;
     left: 50%;
     transform: translateX(-50%);
     position: absolute;
   }
-  
   /* Remove scroll option */
   body, html {
     overflow: hidden;
   }
-  
