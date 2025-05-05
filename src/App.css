@@ -5,13 +5,27 @@
   box-sizing: border-box;
 }
 
+/* Base body styles (dark fallback) */
 body {
-  background-color: #111; /* Make the whole background black or dark */
-  color: white; /* Ensure text color is white for visibility */
-  font-family: Arial, sans-serif; /* Set a clean font */
-  overflow: hidden; /* To prevent unnecessary scrolling */
+  background-color: #111;    /* dark background */
+  color: white;              /* light text */
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
+/* Light theme overrides */
+body.light {
+  background-color: #fff;    /* white page background */
+  color: #000;               /* dark text */
+}
+
+/* Dark theme explicit (not strictly needed—it’s the default) */
+body.dark {
+  background-color: #111;
+  color: white;
+}
+
+/* App container */
 .App {
   text-align: center;
 }
@@ -27,32 +41,32 @@ body {
   }
 }
 
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Header */
 .App-header {
-  background-color: #111; /* Black background for the header */
-  min-height: 50px; /* Reduced height */
+  background-color: #111;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem; /* Adjusted font size */
+  font-size: 1.2rem;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Header in light mode */
+body.light .App-header {
+  background-color: #f9f9f9;
+  color: #000;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Main layout */
 .app {
   display: flex;
-  height: 100vh; /* Full height */
+  height: 100vh;
   flex-direction: column;
 }
 
@@ -62,17 +76,25 @@ body {
   flex-direction: column;
 }
 
+/* Content area */
 .content {
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
-  background-color: #111; /* Keep content background black */
+  background-color: #111;
 }
 
+/* Content area in light mode */
+body.light .content {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Navbar */
 .navbar {
-  background-color: #111; /* Same as sidebar */
+  background-color: #111;
   color: white;
-  height: 50px; /* Adjust height to be same as sidebar */
+  height: 50px;
   padding: 0 20px;
   display: flex;
   align-items: center;
@@ -82,23 +104,54 @@ body {
   border-bottom: 1px solid #333;
 }
 
+/* Navbar in light mode */
+body.light .navbar {
+  background-color: #f9f9f9;
+  color: #000;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Sidebar */
 .sidebar {
-  background-color: #111; /* Sidebar background */
+  background-color: #111;
   color: white;
-  width: 250px; /* Sidebar width */
+  width: 250px;
   height: 100%;
   position: fixed;
   display: flex;
   flex-direction: column;
-  padding-top: 50px; /* To offset navbar */
+  padding-top: 50px;
 }
 
+/* Sidebar in light mode */
+body.light .sidebar {
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+/* Links inside sidebar */
 .sidebar a {
-  color: white;
+  color: inherit;
   text-decoration: none;
   padding: 10px 20px;
 }
 
+/* Hover on sidebar links */
 .sidebar a:hover {
   background-color: #333;
 }
+
+/* Hover in light mode */
+body.light .sidebar a:hover {
+  background-color: #ddd;
+}
+
+/* Ensure other page components inherit text color */
+body.light .sidebar a,
+body.light .sidebar .link,
+body.light .sidebar .label {
+  color: #000;
+}
+
+/* You can add similar overrides for .content h2, .content p, etc. if needed */
+

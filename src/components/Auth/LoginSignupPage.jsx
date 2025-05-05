@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/RutoMatrix_Nonbackground.png';
 import './LoginSignupPage.css';
@@ -10,6 +10,18 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,14 +43,31 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
   };
 
   return (
-    <div className="login-wrapper">
+    <div className={`login-wrapper ${theme}`}>
       <div className="login-container">
         {/* Left Panel */}
-        <div className="left-panel">
-          <h1>Transform Your Experience with <span>Rutomatrix</span></h1>
+        <div className={`left-panel ${theme}`}>
+          {/* Theme Toggle */}
+          <div className="theme-toggle-enhanced">
+            <input
+              type="checkbox"
+              id="theme-toggle"
+              className="theme-checkbox"
+              onChange={toggleTheme}
+              checked={theme === 'light'}
+            />
+            <label htmlFor="theme-toggle" className="theme-label">
+              <span className="theme-icon">{theme === 'light' ? '🌞' : '🌙'}</span>
+            </label>
+          </div>
+
+          <h1>
+            Transform Your Experience with <span>Rutomatrix</span>
+          </h1>
           <p>
-            Discover how Rutomatrix revolutionizes server management with advanced remote control and monitoring.
-            Our platform combines state-of-the-art hardware and software to deliver unparalleled efficiency and flexibility.
+            Discover how Rutomatrix revolutionizes server management with advanced
+            remote control and monitoring. Our platform combines state-of-the-art
+            hardware and software to deliver unparalleled efficiency and flexibility.
           </p>
           <ul>
             <li>✅ Rutomatrix: Redefining Remote Server Management</li>
@@ -49,19 +78,25 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
         </div>
 
         {/* Right Panel */}
-        <div className="right-panel">
+        <div className={`right-panel ${theme}`}>
           <img src={logo} alt="Rutomatrix Logo" className="center-logo" />
-          <div className="form-card">
+          <div className={`form-card ${theme}`}>
             <div className="tab-buttons">
               <button
                 className={isLogin ? 'active' : ''}
-                onClick={() => { setIsLogin(true); setError(''); }}
+                onClick={() => {
+                  setIsLogin(true);
+                  setError('');
+                }}
               >
                 Sign In
               </button>
               <button
                 className={!isLogin ? 'active' : ''}
-                onClick={() => { setIsLogin(false); setError(''); }}
+                onClick={() => {
+                  setIsLogin(false);
+                  setError('');
+                }}
               >
                 Register
               </button>
@@ -69,6 +104,7 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
 
             <form onSubmit={handleSubmit}>
               <input
+                className={theme}
                 type="text"
                 placeholder="Username"
                 value={username}
@@ -76,6 +112,7 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
                 required
               />
               <input
+                className={theme}
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -84,6 +121,7 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
               />
               {!isLogin && (
                 <input
+                  className={theme}
                   type="password"
                   placeholder="Confirm Password"
                   value={confirmPassword}
@@ -92,7 +130,7 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
                 />
               )}
               {error && <div className="error">{error}</div>}
-              <button type="submit" className="submit-btn">
+              <button type="submit" className={`submit-btn ${theme}`}>
                 {isLogin ? 'Log In' : 'Create Account'}
               </button>
             </form>

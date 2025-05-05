@@ -1,4 +1,6 @@
-/* Overall wrapper for login page */
+/* LoginSignupPage.css */
+
+/* Overall wrapper */
 .login-wrapper {
     display: flex;
     justify-content: center;
@@ -7,44 +9,40 @@
     height: 100vh;
     margin: 0;
     padding: 0;
-    background: #f0f2f5;
+    overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  /* Container split exactly 50/50 */
+  
+  /* Container split */
   .login-container {
     display: flex;
     width: 100%;
     height: 100%;
-    max-width: none;
   }
-  /* Left Panel: 50% width, full height */
+  
+  /* Left Panel */
   .left-panel {
     width: 40%;
     height: 100%;
     padding: 60px;
-    color: white;
-    background: linear-gradient(135deg, #1f41ff, #f15300);
     display: flex;
     flex-direction: column;
-    position: relative;
     justify-content: center;
-    bottom: 50px;
+    position: relative;
+    transition: background 0.3s ease, color 0.3s ease;
   }
-  /* Typography for left panel */
   .left-panel h1 {
     font-size: 32px;
     margin-bottom: 20px;
     font-weight: bold;
-    color: white;
   }
   .left-panel span {
-    color: #fff;
     font-weight: bold;
   }
   .left-panel p {
     font-size: 16px;
     margin-bottom: 20px;
     line-height: 1.5;
-    color: white;
   }
   .left-panel ul {
     list-style: none;
@@ -53,41 +51,44 @@
   .left-panel li {
     margin: 8px 0;
     font-size: 15px;
-    color: white;
   }
-  /* Right Panel: 50% width, full height */
+  
+  /* Right Panel */
   .right-panel {
     flex: 1;
-    background-color: #111;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 40px;
-    position: relative; /* Important for absolutely positioning inside */
+    position: relative;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   .center-logo {
     width: 180px;
     height: auto;
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 10;
   }
-
-  /* Form card styling */
+  
+  /* Form card */
   .form-card {
-    background-color: #1c1c1c;
     padding: 30px;
     width: 100%;
     max-width: 360px;
     border-radius: 10px;
-    color: white;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-    margin-top: 120px; /* Ensures the form is placed correctly */
+    margin-top: 120px;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  /* Tab buttons */
+  
+  /* Tabs */
   .tab-buttons {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
-    width: 98%;
   }
   .tab-buttons button {
     flex: 1;
@@ -102,58 +103,149 @@
   }
   .tab-buttons button.active {
     background: #ff6a00;
-    color: white;
   }
   .tab-buttons button:hover {
     background: #6f6d6d;
   }
-  /* Form inputs */
+  
+  /* Inputs */
   form input {
     width: 90%;
     padding: 12px;
     margin-top: 12px;
     border-radius: 8px;
-    background: #2c2c2c;
-    color: white;
     font-size: 14px;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
     border: solid 0.5px #727272;
   }
   form input:focus {
-    background: #3c3c3c;
     outline: none;
   }
-  /* Error message */
+  
+  /* Error */
   .error {
     color: #ff6b6b;
     margin-top: 10px;
     font-size: 14px;
   }
-  /* Submit button */
+  
+  /* Submit */
   .submit-btn {
     width: 99%;
     margin-top: 18px;
-    background-color: #1281d6;
-    color: white;
     border: none;
     padding: 14px;
     border-radius: 5px;
     font-weight: bold;
-    cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s ease;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  .submit-btn:hover {
+  
+  /* ── Dark theme (default) ───────────────────────────────── */
+  .login-wrapper.dark {
+    background-color: #111;
+    color: white;
+  }
+  .left-panel.dark {
+    background: linear-gradient(135deg, #1f41ff, #f15300);
+    color: white;
+  }
+  .right-panel.dark {
+    background-color: #111;
+  }
+  .form-card.dark {
+    background-color: #1c1c1c;
+    color: white;
+  }
+  form input.dark {
+    background: #2c2c2c;
+    color: white;
+  }
+  .submit-btn.dark {
+    background-color: #1281d6;
+    color: white;
+  }
+  .submit-btn.dark:hover {
     background-color: #ff8c33;
   }
-  /* Centering logo on right panel */
-  .right-panel .center-logo {
-    top: 23%;
-    left: 50%;
-    transform: translateX(-50%);
-    position: absolute;
+  
+  /* ── Light theme overrides ─────────────────────────────── */
+  .login-wrapper.light {
+    background-color: #f0f2f5;
+    color: #000;
   }
-  /* Remove scroll option */
-  body, html {
-    overflow: hidden;
+  .left-panel.light {
+        background: linear-gradient(135deg, #1f41ff, #f15300);
+        color: white;
+      }
+  .right-panel.light {
+    background-color: #ffffff;
   }
+  .form-card.light {
+    background-color: #ffffff;
+    color: #000;
+  }
+  .tab-buttons.light button {
+    background: #d3d3d3;
+    color: #000;
+  }
+  .tab-buttons.light button.active {
+    background: #ff6a00;
+    color: #fff;
+  }
+  form input.light {
+    background: #e0e0e0;
+    color: #000;
+    border: solid 1px #ccc;
+  }
+  .submit-btn.light {
+    background-color: #007bff;
+    color: #fff;
+  }
+  .submit-btn.light:hover {
+    background-color: #0056b3;
+  }
+  .theme-toggle-enhanced {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .theme-checkbox {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  
+  .theme-label {
+    cursor: pointer;
+    width: 60px;
+    height: 30px;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 50px;
+    padding: 5px;
+    transition: background 0.3s ease;
+    position: relative;
+  }
+  
+  .theme-label .theme-icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    font-size: 18px;
+  }
+  
+  .theme-checkbox:checked + .theme-label {
+    background: #f1c40f;
+    justify-content: flex-end;
+  }
+  
+  .theme-checkbox:checked + .theme-label .theme-icon {
+    transform: translateX(0);
+  }
+  

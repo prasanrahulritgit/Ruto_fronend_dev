@@ -15,6 +15,7 @@ import Audio from './pages/Audio/Audio';
 import Thermal from './pages/Thermal/Thermal';
 import Camera from './pages/Camera/Camera';
 import LoginSignupPage from './components/Auth/LoginSignupPage';
+import Settings from './pages/Settings/Settings';
 
 function LayoutWithSidebar() {
   return (
@@ -28,6 +29,7 @@ function LayoutWithSidebar() {
             <Route path="/audio"       element={<Audio />} />
             <Route path="/thermal"     element={<Thermal />} />
             <Route path="/camera"      element={<Camera />} />
+            <Route path="/settings"    element={<Settings />} />
           </Routes>
         </div>
       </div>

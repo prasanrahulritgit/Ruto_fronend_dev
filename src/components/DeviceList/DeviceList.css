@@ -18,7 +18,7 @@
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  color: white;
+  color: #1281d6;
 }
 
 /* Sorting dropdown */
@@ -88,4 +88,44 @@
 
 .launch-btn:hover {
   background-color: #e65c00;
+}
+
+/* Light Theme */
+body.light .device-list-container {
+  background-color: #f2f2f2;
+  color: #222;
+}
+
+body.light .device-card {
+  background-color: #ffffff;
+  color: #222;
+  border-color: #ddd;
+}
+
+body.light .device-card:hover {
+  border-color: #ff6a00;
+  transform: translateY(-3px);
+}
+
+body.light .device-ip {
+  color: #007acc;
+}
+
+body.light .device-info {
+  color: #444;
+}
+
+body.light .launch-btn {
+  background-color: #e65c00;
+  color: white;
+}
+
+body.light .launch-btn:hover {
+  background-color: #005ea6;
+}
+
+/* Dark Theme remains unchanged */
+body.dark .device-list-container {
+  background-color: #121212;
+  color: #1281d6;
 }

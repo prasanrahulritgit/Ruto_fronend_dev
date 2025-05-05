@@ -1,7 +1,6 @@
 .camera-container {
     display: flex;
     height: 100%;
-    background-color: #1e1e1e;
     color: #1281d6;
   }
   
@@ -87,7 +86,6 @@
   .servo-panel {
     width: 240px;
     padding: 1rem;
-    background-color: #2a2a2a;
     border-left: 2px solid #333;
   }
   
@@ -99,7 +97,7 @@
   
   .servo-control {
     margin-bottom: 1.5rem;
-    color: white;
+    color: rgb(18, 114, 231);
     
   }
   
