@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/RutoMatrix_Nonbackground.png';
 import './LoginSignupPage.css';
+import ThreeDModel from './ThreeDModel'; // adjust path as needed
 
 export default function LoginSignupPage({ setIsAuthenticated }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -47,20 +48,7 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
       <div className="login-container">
         {/* Left Panel */}
         <div className={`left-panel ${theme}`}>
-          {/* Theme Toggle */}
-          <div className="theme-toggle-enhanced">
-            <input
-              type="checkbox"
-              id="theme-toggle"
-              className="theme-checkbox"
-              onChange={toggleTheme}
-              checked={theme === 'light'}
-            />
-            <label htmlFor="theme-toggle" className="theme-label">
-              <span className="theme-icon">{theme === 'light' ? '🌞' : '🌙'}</span>
-            </label>
-          </div>
-
+        <ThreeDModel url="/models/Rutomatrix.glb" />
           <h1>
             Transform Your Experience with <span>Rutomatrix</span>
           </h1>
@@ -73,12 +61,25 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
             <li>✅ Rutomatrix: Redefining Remote Server Management</li>
             <li>✅ Cross-Platform Serial Driver Compatibility</li>
             <li>✅ Effortless BIOS, Firmware, and OS Flashing</li>
-            <li>✅ Advanced UI for Real-time Diagnostics</li>
           </ul>
         </div>
 
         {/* Right Panel */}
         <div className={`right-panel ${theme}`}>
+          {/* Theme Toggle in Top Right */}
+          <div className="theme-toggle-top-right">
+            <input
+              type="checkbox"
+              id="theme-toggle"
+              className="theme-checkbox"
+              onChange={toggleTheme}
+              checked={theme === 'light'}
+            />
+            <label htmlFor="theme-toggle" className="theme-label">
+              <span className="theme-icon">{theme === 'light' ? '🌞' : '🌙'}</span>
+            </label>
+          </div>
+
           <img src={logo} alt="Rutomatrix Logo" className="center-logo" />
           <div className={`form-card ${theme}`}>
             <div className="tab-buttons">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DeviceList.css';
 
@@ -29,6 +29,7 @@ const initialDevices = [
 function DeviceList() {
   const [devices, setDevices] = useState(initialDevices);
   const [sortBy, setSortBy] = useState('');
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const navigate = useNavigate();
 
   const handleSortChange = (e) => {
@@ -43,20 +44,56 @@ function DeviceList() {
     setDevices(sorted);
   };
 
-  const handleLaunch = () => {
-    navigate('/videostream'); // or your dashboard landing route
+  const handleResetSort = () => {
+    setSortBy('');
+    setDevices(initialDevices);
   };
 
+  const handleLaunch = () => {
+    navigate('/videostream');
+  };
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
   return (
-    <div className="device-list-container">
+    <div className={`device-list-container ${theme}`}>
+      {/* Theme Toggle */}
+      <div className="theme-toggle-top-right">
+        <input
+          type="checkbox"
+          id="theme-toggle"
+          className="theme-checkbox"
+          onChange={toggleTheme}
+          checked={theme === 'light'}
+        />
+        <label htmlFor="theme-toggle" className="theme-label">
+          <span className="theme-icon">{theme === 'light' ? '🌞' : '🌙'}</span>
+        </label>
+      </div>
+
       <div className="device-list-header">Available Devices</div>
 
+      {/* Sort By Location */}
       <div className="device-sort">
-        <select value={sortBy} onChange={handleSortChange}>
-          <option value="">-- Sort by Location --</option>
+        <label htmlFor="locationSort" className="sort-label">Sort by Location:</label>
+        <select id="locationSort" value={sortBy} onChange={handleSortChange}>
+          <option value="">-- Select Location --</option>
           <option value="San Jose">San Jose</option>
           <option value="Austin">Austin</option>
         </select>
+        {sortBy && (
+          <button className="reset-sort-btn" onClick={handleResetSort}>
+            Reset
+          </button>
+        )}
       </div>
 
       <div className="device-grid">

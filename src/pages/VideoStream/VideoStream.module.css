@@ -1,38 +1,58 @@
 .container {
-    flex: 1;
-    color: #1281d6;
-    padding: 1rem;
-  }
+  flex: 1;
+  color: #1281d6;
+  padding: 1rem;
   
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .record, .capture {
-    background-color:#ff6a00;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    margin-left: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  .video {
-    margin-top: 1rem;
-    height: 500px;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    border: 2px solid #333;
-  }
-  
-  .noSignal {
-    color: gray;
-    text-align: center;
-  }
-  
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.record, .capture {
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.video {
+  position: relative; /* Required for absolute children */
+  margin-top: 1rem;
+  height: 500px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border: 2px solid #333;
+}
+
+.noSignal {
+  color: gray;
+  text-align: center;
+}
+
+.controlsBottomRight {
+  position: fixed; /* Use fixed for outside-container placement */
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 1rem;
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+
+.controlButton {
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}

@@ -11,17 +11,17 @@
     padding: 0;
     overflow: hidden;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  /* Container split */
-  .login-container {
+}
+
+/* Container split */
+.login-container {
     display: flex;
     width: 100%;
     height: 100%;
-  }
-  
-  /* Left Panel */
-  .left-panel {
+}
+
+/* Left Panel */
+.left-panel {
     width: 40%;
     height: 100%;
     padding: 60px;
@@ -30,31 +30,31 @@
     justify-content: center;
     position: relative;
     transition: background 0.3s ease, color 0.3s ease;
-  }
-  .left-panel h1 {
+}
+.left-panel h1 {
     font-size: 32px;
     margin-bottom: 20px;
     font-weight: bold;
-  }
-  .left-panel span {
+}
+.left-panel span {
     font-weight: bold;
-  }
-  .left-panel p {
+}
+.left-panel p {
     font-size: 16px;
     margin-bottom: 20px;
     line-height: 1.5;
-  }
-  .left-panel ul {
+}
+.left-panel ul {
     list-style: none;
     padding: 0;
-  }
-  .left-panel li {
+}
+.left-panel li {
     margin: 8px 0;
     font-size: 15px;
-  }
-  
-  /* Right Panel */
-  .right-panel {
+}
+
+/* Right Panel */
+.right-panel {
     flex: 1;
     display: flex;
     justify-content: center;
@@ -62,19 +62,19 @@
     padding: 40px;
     position: relative;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  .center-logo {
-    width: 180px;
+}
+.center-logo {
+    width: 300px;
     height: auto;
     position: absolute;
     top: 23%;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-  }
-  
-  /* Form card */
-  .form-card {
+}
+
+/* Form card */
+.form-card {
     padding: 30px;
     width: 100%;
     max-width: 360px;
@@ -82,15 +82,15 @@
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
     margin-top: 120px;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  /* Tabs */
-  .tab-buttons {
+}
+
+/* Tabs */
+.tab-buttons {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
-  }
-  .tab-buttons button {
+}
+.tab-buttons button {
     flex: 1;
     padding: 12px;
     background: #5d5d5d;
@@ -100,16 +100,16 @@
     transition: background 0.3s ease;
     font-weight: 500;
     border-radius: 2px;
-  }
-  .tab-buttons button.active {
+}
+.tab-buttons button.active {
     background: #ff6a00;
-  }
-  .tab-buttons button:hover {
+}
+.tab-buttons button:hover {
     background: #6f6d6d;
-  }
-  
-  /* Inputs */
-  form input {
+}
+
+/* Inputs */
+form input {
     width: 90%;
     padding: 12px;
     margin-top: 12px;
@@ -117,20 +117,20 @@
     font-size: 14px;
     transition: background 0.3s ease, color 0.3s ease, border 0.3s ease;
     border: solid 0.5px #727272;
-  }
-  form input:focus {
+}
+form input:focus {
     outline: none;
-  }
-  
-  /* Error */
-  .error {
+}
+
+/* Error */
+.error {
     color: #ff6b6b;
     margin-top: 10px;
     font-size: 14px;
-  }
-  
-  /* Submit */
-  .submit-btn {
+}
+
+/* Submit */
+.submit-btn {
     width: 99%;
     margin-top: 18px;
     border: none;
@@ -140,89 +140,83 @@
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-  }
-  
-  /* ── Dark theme (default) ───────────────────────────────── */
-  .login-wrapper.dark {
+}
+
+/* Dark theme */
+.login-wrapper.dark {
     background-color: #111;
     color: white;
-  }
-  .left-panel.dark {
+}
+.left-panel.dark {
     background: linear-gradient(135deg, #1f41ff, #f15300);
     color: white;
-  }
-  .right-panel.dark {
+}
+.right-panel.dark {
     background-color: #111;
-  }
-  .form-card.dark {
+}
+.form-card.dark {
     background-color: #1c1c1c;
     color: white;
-  }
-  form input.dark {
+}
+form input.dark {
     background: #2c2c2c;
     color: white;
-  }
-  .submit-btn.dark {
+}
+.submit-btn.dark {
     background-color: #1281d6;
     color: white;
-  }
-  .submit-btn.dark:hover {
+}
+.submit-btn.dark:hover {
     background-color: #ff8c33;
-  }
-  
-  /* ── Light theme overrides ─────────────────────────────── */
-  .login-wrapper.light {
+}
+
+/* Light theme */
+.login-wrapper.light {
     background-color: #f0f2f5;
     color: #000;
-  }
-  .left-panel.light {
-        background: linear-gradient(135deg, #1f41ff, #f15300);
-        color: white;
-      }
-  .right-panel.light {
+}
+.left-panel.light {
+    background: linear-gradient(135deg, #1f41ff, #f15300);
+    color: white;
+}
+.right-panel.light {
     background-color: #ffffff;
-  }
-  .form-card.light {
+}
+.form-card.light {
     background-color: #ffffff;
     color: #000;
-  }
-  .tab-buttons.light button {
+}
+.tab-buttons.light button {
     background: #d3d3d3;
     color: #000;
-  }
-  .tab-buttons.light button.active {
+}
+.tab-buttons.light button.active {
     background: #ff6a00;
     color: #fff;
-  }
-  form input.light {
+}
+form input.light {
     background: #e0e0e0;
     color: #000;
     border: solid 1px #ccc;
-  }
-  .submit-btn.light {
+}
+.submit-btn.light {
     background-color: #007bff;
     color: #fff;
-  }
-  .submit-btn.light:hover {
+}
+.submit-btn.light:hover {
     background-color: #0056b3;
-  }
-  .theme-toggle-enhanced {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .theme-checkbox {
+}
+
+/* Theme toggle styles */
+.theme-checkbox {
     height: 0;
     width: 0;
     visibility: hidden;
-  }
-  
-  .theme-label {
+}
+.theme-label {
     cursor: pointer;
-    width: 60px;
-    height: 30px;
+    width: 50px;
+    height: 20px;
     background: #333;
     display: flex;
     align-items: center;
@@ -231,21 +225,34 @@
     padding: 5px;
     transition: background 0.3s ease;
     position: relative;
-  }
-  
-  .theme-label .theme-icon {
+}
+.theme-label .theme-icon {
     width: 20px;
     height: 20px;
     transition: transform 0.3s ease;
     font-size: 18px;
-  }
-  
-  .theme-checkbox:checked + .theme-label {
+}
+.theme-checkbox:checked + .theme-label {
     background: #f1c40f;
     justify-content: flex-end;
-  }
-  
-  .theme-checkbox:checked + .theme-label .theme-icon {
+}
+.theme-checkbox:checked + .theme-label .theme-icon {
     transform: translateX(0);
-  }
-  
+}
+
+/* Position toggle in right panel top right */
+.theme-toggle-top-right {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    z-index: 10;
+}
+
+.left-panel-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}

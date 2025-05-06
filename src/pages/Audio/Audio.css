@@ -94,3 +94,30 @@
     font-weight: bold;
   }
   
+  .tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tab {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #2a2a2a;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tab.active {
+    background-color: #ff6a00;
+    font-weight: bold;
+  }
+  
+  .empty-analysis {
+    background-color: #1e1e1e;
+    padding: 2rem;
+    border-radius: 10px;
+    color: #ccc;
+  }
+  

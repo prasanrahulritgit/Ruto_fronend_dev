@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
-  Video,
+  Projector,
   Volume2,
   Camera as CameraIcon,
   ThermometerSun,
@@ -18,7 +18,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const menuItems = [
-    { to: '/videostream', label: 'Streamer', icon: <Video size={18} /> },
+    { to: '/videostream', label: 'Multimedia', icon: <Projector size={18} /> },
     { to: '/audio', label: 'Audio', icon: <Volume2 size={18} /> },
     { to: '/camera', label: 'Camera', icon: <CameraIcon size={18} /> },
     { to: '/thermal', label: 'Thermal', icon: <ThermometerSun size={18} /> },
