@@ -15,15 +15,15 @@
 
 /* Header title */
 .device-list-header {
-  font-size: 2rem;
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-bottom: 1.5rem;
+  margin-bottom: 4rem;
   color: #1281d6;
 }
 
 /* Sorting dropdown */
 .device-sort {
-  margin-bottom: 1.5rem;
+  margin-bottom: 4rem;
   display: flex;
   align-items: center;
   justify-content: center;

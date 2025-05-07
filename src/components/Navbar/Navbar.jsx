@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import {
-  Projector,
+  MonitorSmartphone,
   Volume2,
   Camera as CameraIcon,
   Usb,
@@ -18,8 +18,8 @@ import TessolveLogo from '../../assets/tessolve.png';
 import styles from './Navbar.module.css';
 
 const routeIcons = {
-  '/':            <Projector size={20} color="#fff" />,
-  '/streamer':    <Projector size={20} color="#fff" />,
+  '/':            <MonitorSmartphone size={20} color="#fff" />,
+  '/streamer':    <MonitorSmartphone size={20} color="#fff" />,
   '/audio':       <Volume2 size={20} color="#fff" />,
   '/camera':      <CameraIcon size={20} color="#fff" />,
   '/thermal':     <ThermometerSun size={20} color="#fff" />,
@@ -32,7 +32,7 @@ const routeIcons = {
 
 const Navbar = () => {
   const location = useLocation();
-  const icon = routeIcons[location.pathname] || <Projector size={20} color="#fff" />;
+  const icon = routeIcons[location.pathname] || <MonitorSmartphone size={20} color="#fff" />;
 
   // Functions to handle clicks
   const openRutomatrix = () => {

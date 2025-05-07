@@ -22,9 +22,9 @@
 
 /* Left Panel */
 .left-panel {
-    width: 40%;
+    width: 45%;
     height: 100%;
-    padding: 60px;
+    padding: 45px;
     display: flex;
     flex-direction: column;
     justify-content: center;

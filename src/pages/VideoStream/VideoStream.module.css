@@ -12,13 +12,21 @@
 }
 
 .record, .capture {
+  display: inline-flex; /* Use inline-flex to keep buttons in line with each other */
+  align-items: center;  /* Vertically center the icon and text */
+  justify-content: center; /* Horizontally center the icon and text */
   background-color: #ff6a00;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  margin-left: 1rem;
+  margin-left: 1rem; /* Space between buttons */
   cursor: pointer;
   border-radius: 4px;
+   /* Space between icon and text */
+}
+
+.record svg, .capture svg {
+  vertical-align: middle; /* Ensures the SVG icon stays aligned with text */
 }
 
 .video {
@@ -39,20 +47,28 @@
 }
 
 .controlsBottomRight {
-  position: fixed; /* Use fixed for outside-container placement */
+  position: fixed; /* Fixed position at the bottom-right corner */
   bottom: 20px;
-  right: 20px;
+  right: 30px;
   display: flex;
-  gap: 1rem;
+  gap: 1rem; /* Space between buttons */
   z-index: 1000; /* Ensure it stays on top */
 }
 
-
 .controlButton {
+  display: inline-flex; /* Use inline-flex to keep buttons aligned horizontally */
+  align-items: center; /* Vertically center icon and text */
+  justify-content: center; /* Horizontally center icon and text */
   background-color: #ff6a00;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  cursor: pointer;
   border-radius: 4px;
+  cursor: pointer;
+  gap: 0.5rem; /* Space between icon and text */
 }
+
+.controlButton svg {
+  vertical-align: middle; /* Ensures the icon is aligned with the text */
+}
+

@@ -1,214 +1,195 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { Camera as CameraIcon, Maximize2, X } from 'lucide-react';
 import './Thermal.css';
 
-const Thermal = () => {
-  // Thermal visualization state
-  const [thermalData, setThermalData] = useState([]);
-  const [minTemp, setMinTemp] = useState(20);
-  const [maxTemp, setMaxTemp] = useState(40);
-  const [resolution] = useState({ x: 32, y: 32 });
-  const animationRef = useRef(null);
+export default function Thermal() {
+  const videoRef1 = useRef(null);
+  const videoRef2 = useRef(null);
+  const videoRef3 = useRef(null);
+  const canvasRef = useRef(null);
+  const [started, setStarted] = useState(false);
+  const [image, setImage] = useState(null);
+  const [servo, setServo] = useState({ horizontal: 90, vertical: 90 });
+  const [activeCamera, setActiveCamera] = useState('ALL');
+  const [selectedCamera, setSelectedCamera] = useState('ALL');
   
-  // Temperature analysis state
+  // Temperature stats
   const [tempStats, setTempStats] = useState({
-    maxTemp: 38.7,
-    minTemp: 22.3,
-    avgTemp: 29.8,
-    centerTemp: 32.1
+    maxTemp: 0,
+    minTemp: 0,
+    avgTemp: 0,
+    centerTemp: 0
   });
 
-  // Thermal colors for visualization
-  const thermalColors = [
-    '#000080', // Dark blue (coldest)
-    '#0000FF', // Blue
-    '#00FFFF', // Cyan
-    '#00FF00', // Green
-    '#FFFF00', // Yellow
-    '#FF8000', // Orange
-    '#FF0000', // Red
-    '#800000'  // Dark red (hottest)
-  ];
-
-  // Generate simulated thermal data
   useEffect(() => {
-    const generateThermalData = () => {
-      const newData = [];
-      const centerX = resolution.x / 2;
-      const centerY = resolution.y / 2;
-      
-      let max = -Infinity;
-      let min = Infinity;
-      let sum = 0;
-      
-      for (let y = 0; y < resolution.y; y++) {
-        const row = [];
-        for (let x = 0; x < resolution.x; x++) {
-          const distX = (x - centerX) / centerX;
-          const distY = (y - centerY) / centerY;
-          const distance = Math.sqrt(distX * distX + distY * distY);
-          
-          const normalizedTemp = 1 - Math.min(1, distance * 1.2);
-          const noise = Math.random() * 0.1 - 0.05;
-          const value = normalizedTemp + noise;
-          const temp = minTemp + value * (maxTemp - minTemp);
-          
-          row.push(temp);
-          
-          // Update stats
-          if (temp > max) max = temp;
-          if (temp < min) min = temp;
-          sum += temp;
-        }
-        newData.push(row);
-      }
-      
-      // Calculate center temperature
-      const centerTemp = newData[Math.floor(resolution.y/2)][Math.floor(resolution.x/2)];
-      
-      setThermalData(newData);
-      setTempStats({
-        maxTemp: parseFloat(max.toFixed(1)),
-        minTemp: parseFloat(min.toFixed(1)),
-        avgTemp: parseFloat((sum / (resolution.x * resolution.y)).toFixed(1)),
-        centerTemp: parseFloat(centerTemp.toFixed(1))
-      });
-      
-      animationRef.current = requestAnimationFrame(generateThermalData);
-    };
-    
-    generateThermalData();
-    
+    const videoEl1 = videoRef1.current;
+    const videoEl2 = videoRef2.current;
+    const videoEl3 = videoRef3.current;
+
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      [videoEl1, videoEl2, videoEl3].forEach(video => {
+        if (video?.srcObject) {
+          video.srcObject.getTracks().forEach(t => t.stop());
+        }
+      });
     };
-  }, [resolution, minTemp, maxTemp]);
-  
-  // Get color for a temperature value
-  const getColorForTemperature = (temp) => {
-    const normalizedTemp = (temp - minTemp) / (maxTemp - minTemp);
-    const colorIndex = Math.min(Math.floor(normalizedTemp * thermalColors.length), thermalColors.length - 1);
-    return thermalColors[colorIndex];
+  }, []);
+
+  const startCamera = async (videoRef) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      videoRef.current.srcObject = stream;
+      setStarted(true);
+    } catch (e) {
+      console.error('Camera error', e);
+    }
+  };
+
+  const capture = () => {
+    const video = videoRef1.current;
+    const canvas = canvasRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    setImage(canvas.toDataURL('image/png'));
+  };
+
+  const handleServoChange = (axis) => (e) => {
+    const val = parseInt(e.target.value, 10);
+    setServo(s => ({ ...s, [axis]: val }));
+    console.log(`Servo ${axis}: ${val}°`);
+  };
+
+  const toggleFullscreen = (cameraIndex) => {
+    if (activeCamera === cameraIndex) {
+      setActiveCamera('ALL');
+      setSelectedCamera('ALL');
+    } else {
+      setActiveCamera(cameraIndex);
+      setSelectedCamera(cameraIndex);
+    }
+  };
+
+  const closeFullscreen = () => {
+    setActiveCamera('ALL');
+    setSelectedCamera('ALL');
+  };
+
+  const handleDropdownChange = (e) => {
+    const selected = e.target.value;
+    setSelectedCamera(selected);
+    setActiveCamera(selected);
+    if (selected !== 'ALL') {
+      const videoRef = selected === 'camera-1' ? videoRef1 : selected === 'camera-2' ? videoRef2 : videoRef3;
+      startCamera(videoRef);
+    }
   };
 
   return (
-    <div className="thermal-container">
-      {/* Main Thermal Visualization */}
-      <div className="thermal-visualization">
-        <div className="thermal-header">
-          <h2>Thermal Visualization</h2>
-          <div className="thermal-controls">
-            <button className="thermal-button">📸 Capture</button>
-            <button className="thermal-button">Export</button>
+    <div className="camera-container">
+      <div className="camera-panel">
+        <div className="camera-header">
+          <h2>Thermal Feed</h2>
+          <div className="camera-controls">
+            <select
+              className="camera-select"
+              value={selectedCamera}
+              onChange={handleDropdownChange}
+            >
+              <option value="ALL">ALL</option>
+              <option value="camera-1">Camera 1</option>
+              <option value="camera-2">Camera 2</option>
+              <option value="camera-3">Camera 3</option>
+            </select>
+            <button className="camera-capture-button" onClick={capture}>
+              <CameraIcon size={20} /> Capture
+            </button>
           </div>
         </div>
-        
-        <div className="thermal-display">
-          <div 
-            className="thermal-grid"
-            style={{
-              gridTemplateColumns: `repeat(${resolution.x}, 1fr)`,
-              gridTemplateRows: `repeat(${resolution.y}, 1fr)`
-            }}
-          >
-            {thermalData.flatMap((row, y) => 
-              row.map((temp, x) => (
+
+        <div className="camera-feeds">
+          {['camera-1', 'camera-2', 'camera-3'].map((camera, index) => {
+            if (activeCamera === 'ALL' || activeCamera === camera) {
+              return (
                 <div
-                  key={`${x}-${y}`}
-                  className="thermal-pixel"
-                  style={{ backgroundColor: getColorForTemperature(temp) }}
-                />
-              ))
-            )}
-          </div>
-          
-          {/* Temperature Scale */}
-          <div className="thermal-scale">
-            <div className="thermal-scale-colors">
-              {thermalColors.map((color, index) => (
-                <div 
-                  key={index}
-                  className="thermal-scale-color"
-                  style={{ backgroundColor: color }}
-                />
-              ))}
-            </div>
-            <div className="thermal-scale-labels">
-              <span>{maxTemp}°C</span>
-              <span>{minTemp}°C</span>
-            </div>
-          </div>
+                  className={`camera-feed ${camera} ${activeCamera === camera ? 'fullscreen' : ''}`}
+                  key={camera}
+                  onClick={() => toggleFullscreen(camera)}
+                >
+                  <div className="camera-feed-container">
+                    {started
+                      ? <video ref={videoRef1} autoPlay playsInline className="camera-stream" />
+                      : <div className="camera-placeholder">Select Camera to Start</div>}
+                    <div className="fullscreen-icon">
+                      {activeCamera === camera ? <X size={20} /> : <Maximize2 size={20} />}
+                    </div>
+                  </div>
+                </div>
+              );
+            }
+            return null;
+          })}
         </div>
-        
-        {/* Temperature Controls */}
-        <div className="thermal-control-panel">
-          <div className="thermal-range-control">
-            <label>Min Temp (°C)</label>
-            <input
-              type="range"
-              min="0"
-              max="30"
-              value={minTemp}
-              onChange={(e) => setMinTemp(parseFloat(e.target.value))}
-              className="thermal-slider"
-            />
-            <span>{minTemp}</span>
+
+        <canvas ref={canvasRef} style={{ display: 'none' }} />
+        {image && (
+          <div className="camera-feed">
+            <img src={image} alt="captured" className="camera-stream" />
           </div>
-          
-          <div className="thermal-range-control">
-            <label>Max Temp (°C)</label>
-            <input
-              type="range"
-              min="30"
-              max="100"
-              value={maxTemp}
-              onChange={(e) => setMaxTemp(parseFloat(e.target.value))}
-              className="thermal-slider"
-            />
-            <span>{maxTemp}</span>
-          </div>
-          
-          <button className="thermal-advanced-button">
-            Advanced Settings
-          </button>
-        </div>
+        )}
       </div>
-      
-      {/* Temperature Analysis */}
+
+      {/* Servo Panel */}
+      <div className="servo-panel">
+        <h3>Dual Servo Control</h3>
+
+        <div className="servo-control">
+          <label>Horizontal: {servo.horizontal}°</label>
+          <input
+            type="range"
+            min="0"
+            max="180"
+            value={servo.horizontal}
+            onChange={handleServoChange('horizontal')}
+          />
+        </div>
+
+        <div className="servo-control">
+          <label>Vertical: {servo.vertical}°</label>
+          <input
+            type="range"
+            min="0"
+            max="180"
+            value={servo.vertical}
+            onChange={handleServoChange('vertical')}
+          />
+        </div>
+
+      {/* Thermal Analysis Panel Below Servo */}
       <div className="thermal-analysis">
-        <h3 className="thermal-analysis-title">
-          Temperature Analysis
-        </h3>
-        
+        <h3 className="thermal-analysis-title">Temperature Analysis</h3>
+
         <div className="thermal-stats">
           <div className="thermal-stat">
             <span>Maximum Temp:</span>
             <span className="thermal-high">{tempStats.maxTemp}°C</span>
           </div>
-          
+
           <div className="thermal-stat">
             <span>Minimum Temp:</span>
             <span className="thermal-low">{tempStats.minTemp}°C</span>
           </div>
-          
+
           <div className="thermal-stat">
             <span>Average Temp:</span>
             <span className="thermal-avg">{tempStats.avgTemp}°C</span>
           </div>
-          
-          <div className="thermal-stat">
-            <span>Center Point:</span>
-            <span className="thermal-center">{tempStats.centerTemp}°C</span>
-          </div>
-          
           <button className="thermal-export-button">
             Export Thermal Data
           </button>
         </div>
       </div>
+      </div>
     </div>
   );
-};
-
-export default Thermal;
+}

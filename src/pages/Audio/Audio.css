@@ -107,7 +107,13 @@
     color: white;
     border-radius: 5px;
     cursor: pointer;
+  
+    display: flex;
+    align-items: center;   /* vertically center */
+    justify-content: center; /* horizontally center */
+    gap: 0.5rem;           /* space between icon and text */
   }
+  
   
   .tab.active {
     background-color: #ff6a00;

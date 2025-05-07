@@ -9,16 +9,22 @@ const Model = ({ url }) => {
 
 const ThreeDModel = ({ url }) => {
   return (
-    <div style={{ height: '390px', width: '500px' }}>
-      <Canvas>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} />
-        <Suspense fallback={null}>
-          <Model url={url} />
-        </Suspense>
-        {/* 🔁 Added autoRotate */}
-        <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
-      </Canvas>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '50vh',  // Full viewport height for vertical centering
+    }}>
+      <div style={{ height: '500px', width: '500px' }}>
+        <Canvas>
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[5, 5, 5]} />
+          <Suspense fallback={null}>
+            <Model url={url} />
+          </Suspense>
+          <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={2} />
+        </Canvas>
+      </div>
     </div>
   );
 };

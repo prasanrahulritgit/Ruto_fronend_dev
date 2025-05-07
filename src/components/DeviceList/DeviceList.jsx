@@ -35,18 +35,17 @@ function DeviceList() {
   const handleSortChange = (e) => {
     const location = e.target.value;
     setSortBy(location);
-    const sorted = [...initialDevices].sort((a, b) => {
-      if (location === '') return 0;
-      if (a.location === location && b.location !== location) return -1;
-      if (a.location !== location && b.location === location) return 1;
-      return 0;
-    });
-    setDevices(sorted);
+    if (location === '') {
+      setDevices(initialDevices); // Show all devices when no filter is selected
+    } else {
+      const filteredDevices = initialDevices.filter((device) => device.location === location);
+      setDevices(filteredDevices); // Show devices that match the selected location
+    }
   };
 
   const handleResetSort = () => {
     setSortBy('');
-    setDevices(initialDevices);
+    setDevices(initialDevices); // Reset to show all devices
   };
 
   const handleLaunch = () => {
@@ -85,7 +84,7 @@ function DeviceList() {
       <div className="device-sort">
         <label htmlFor="locationSort" className="sort-label">Sort by Location:</label>
         <select id="locationSort" value={sortBy} onChange={handleSortChange}>
-          <option value="">-- Select Location --</option>
+          <option value="">-- All Devices --</option>
           <option value="San Jose">San Jose</option>
           <option value="Austin">Austin</option>
         </select>

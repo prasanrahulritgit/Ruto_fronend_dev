@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/RutoMatrix_Nonbackground.png';
 import './LoginSignupPage.css';
 import ThreeDModel from './ThreeDModel'; // adjust path as needed
+import InfiniteMovingCards from "./InfiniteMovingCards";
 
 export default function LoginSignupPage({ setIsAuthenticated }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -49,19 +50,7 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
         {/* Left Panel */}
         <div className={`left-panel ${theme}`}>
         <ThreeDModel url="/models/Rutomatrix.glb" />
-          <h1>
-            Transform Your Experience with <span>Rutomatrix</span>
-          </h1>
-          <p>
-            Discover how Rutomatrix revolutionizes server management with advanced
-            remote control and monitoring. Our platform combines state-of-the-art
-            hardware and software to deliver unparalleled efficiency and flexibility.
-          </p>
-          <ul>
-            <li>✅ Rutomatrix: Redefining Remote Server Management</li>
-            <li>✅ Cross-Platform Serial Driver Compatibility</li>
-            <li>✅ Effortless BIOS, Firmware, and OS Flashing</li>
-          </ul>
+        <InfiniteMovingCards />
         </div>
 
         {/* Right Panel */}

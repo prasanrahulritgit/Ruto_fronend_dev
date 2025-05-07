@@ -39,10 +39,6 @@ const Audio = () => {
           <div className="header">
             <h2>Audio Streamer</h2>
             <button className="stream-btn" onClick={handleStream}>Start Streaming</button>
-            <select className="view-select">
-              <option>Standard View</option>
-              <option>Advanced View</option>
-            </select>
           </div>
 
           <div className="waveform"></div>
