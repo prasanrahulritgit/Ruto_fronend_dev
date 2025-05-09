@@ -23,7 +23,7 @@ const routeIcons = {
   '/audio':       <Volume2 size={20} color="#fff" />,
   '/camera':      <CameraIcon size={20} color="#fff" />,
   '/thermal':     <ThermometerSun size={20} color="#fff" />,
-  '/usb':         <Usb size={20} color="#fff" />,
+  '/UsbIp':         <Usb size={20} color="#fff" />,
   '/debugger':    <Code size={20} color="#fff" />,
   '/protocol':    <Share2 size={20} color="#fff" />,
   '/ruto-vault':  <Brain size={20} color="#fff" />,

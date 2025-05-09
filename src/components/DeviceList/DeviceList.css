@@ -12,7 +12,7 @@
   justify-content: center; /* Center content vertically */
   align-items: center; /* Center content horizontally */
 }
-
+ 
 /* Header title */
 .device-list-header {
   font-size: 2.5rem;
@@ -20,7 +20,7 @@
   margin-bottom: 4rem;
   color: #1281d6;
 }
-
+ 
 /* Sorting dropdown */
 .device-sort {
   margin-bottom: 4rem;
@@ -30,7 +30,7 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
-
+ 
 /* Device grid and cards adjustments */
 .device-grid {
   display: flex;
@@ -40,7 +40,7 @@
   width: 100%; /* Ensure it takes full width */
   max-width: 1200px; /* Optional: restrict max width of the grid */
 }
-
+ 
 /* Individual device card */
 .device-card {
   background-color: #1e1e1e;
@@ -52,12 +52,12 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s, border-color 0.2s;
 }
-
+ 
 .device-card:hover {
   border-color: #ff6a00;
   transform: translateY(-3px);
 }
-
+ 
 /* Device information text */
 .device-ip {
   font-size: 1.2rem;
@@ -65,13 +65,13 @@
   color: #1281d6;
   margin-bottom: 0.75rem;
 }
-
+ 
 .device-info {
   font-size: 0.95rem;
   margin: 0.2rem 0;
   color: #cccccc;
 }
-
+ 
 /* Launch button */
 .launch-btn {
   margin-top: 1.5rem;
@@ -86,51 +86,51 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
+ 
 .launch-btn:hover {
   background-color: #e65c00;
 }
-
+ 
 /* Light Theme */
 body.light .device-list-container {
   background-color: #f2f2f2;
   color: #222;
 }
-
+ 
 body.light .device-card {
   background-color: #ffffff;
   color: #222;
   border-color: #ddd;
 }
-
+ 
 body.light .device-card:hover {
   border-color: #ff6a00;
   transform: translateY(-3px);
 }
-
+ 
 body.light .device-ip {
   color: #007acc;
 }
-
+ 
 body.light .device-info {
   color: #444;
 }
-
+ 
 body.light .launch-btn {
   background-color: #e65c00;
   color: white;
 }
-
+ 
 body.light .launch-btn:hover {
   background-color: #005ea6;
 }
-
+ 
 /* Dark Theme remains unchanged */
 body.dark .device-list-container {
   background-color: #121212;
   color: #1281d6;
 }
-
+ 
 .theme-checkbox {
   height: 0;
   width: 0;
@@ -168,12 +168,12 @@ body.dark .device-list-container {
   right: 1.5rem;
   z-index: 10;
 }
-
+ 
 .sort-label {
   font-weight: bold;
   font-size: 1rem;
 }
-
+ 
 .device-sort select {
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -184,21 +184,21 @@ body.dark .device-list-container {
   cursor: pointer;
   transition: border-color 0.3s, background-color 0.3s;
 }
-
+ 
 .device-sort select:hover {
   border-color: #ff6a00;
 }
-
+ 
 body.light .device-sort select {
   background-color: #ffffff;
   color: #222;
   border: 2px solid #007acc;
 }
-
+ 
 body.light .device-sort select:hover {
   border-color: #e65c00;
 }
-
+ 
 .reset-sort-btn {
   padding: 0.5rem 1rem;
   background-color: #ff6a00;
@@ -210,7 +210,7 @@ body.light .device-sort select:hover {
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
+ 
 .reset-sort-btn:hover {
   background-color: #e65c00;
 }

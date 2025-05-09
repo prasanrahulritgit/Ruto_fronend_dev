@@ -4,6 +4,7 @@ import logo from '../../assets/RutoMatrix_Nonbackground.png';
 import './LoginSignupPage.css';
 import ThreeDModel from './ThreeDModel'; // adjust path as needed
 import InfiniteMovingCards from "./InfiniteMovingCards";
+import { Sun, Moon } from 'lucide-react';
 
 export default function LoginSignupPage({ setIsAuthenticated }) {
   const [isLogin, setIsLogin] = useState(true);
@@ -65,7 +66,9 @@ export default function LoginSignupPage({ setIsAuthenticated }) {
               checked={theme === 'light'}
             />
             <label htmlFor="theme-toggle" className="theme-label">
-              <span className="theme-icon">{theme === 'light' ? '🌞' : '🌙'}</span>
+              <span>
+                {theme === 'light' ? <Sun size={20} /> : <Moon size={20}  color= "#1281d6" />}
+              </span>
             </label>
           </div>
 

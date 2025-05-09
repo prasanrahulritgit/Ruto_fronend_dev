@@ -16,6 +16,8 @@ import Thermal from './pages/Thermal/Thermal';
 import Camera from './pages/Camera/Camera';
 import LoginSignupPage from './components/Auth/LoginSignupPage';
 import Settings from './pages/Settings/Settings';
+import Debugger from './pages/Debugger/Debugger';
+import UsbIp from './pages/UsbIp/UsbIp';
 
 function LayoutWithSidebar() {
   return (
@@ -29,7 +31,9 @@ function LayoutWithSidebar() {
             <Route path="/audio"       element={<Audio />} />
             <Route path="/thermal"     element={<Thermal />} />
             <Route path="/camera"      element={<Camera />} />
+            <Route path="/debugger"      element={<Debugger />} />
             <Route path="/settings"    element={<Settings />} />
+            <Route path="/UsbIp"    element={<UsbIp />} />
           </Routes>
         </div>
       </div>
