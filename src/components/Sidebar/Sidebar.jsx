@@ -22,7 +22,7 @@ const Sidebar = () => {
     { to: '/audio', label: 'Audio', icon: <Volume2 size={18} /> },
     { to: '/camera', label: 'Camera', icon: <CameraIcon size={18} /> },
     { to: '/thermal', label: 'Thermal', icon: <ThermometerSun size={18} /> },
-    { to: '/usb', label: 'USB IP', icon: <Usb size={18} /> },
+    { to: '/usbip', label: 'USB IP', icon: <Usb size={18} /> },
     { to: '/debugger', label: 'Debugger', icon: <Code size={18} /> },
     { to: '/protocol', label: 'Protocol', icon: <Share2 size={18} /> },
     { to: '/ruto-vault', label: 'Ruto Vault', icon: <Brain size={18} /> },

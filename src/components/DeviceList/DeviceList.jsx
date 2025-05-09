@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './DeviceList.css';
+import { Sun, Moon } from 'lucide-react'; // Lucide icons
 
 const initialDevices = [
   {
@@ -74,7 +75,9 @@ function DeviceList() {
           checked={theme === 'light'}
         />
         <label htmlFor="theme-toggle" className="theme-label">
-          <span className="theme-icon">{theme === 'light' ? '🌞' : '🌙'}</span>
+        <span className="theme-icon">
+            {theme === 'light' ? <Sun size={20} /> : <Moon size={20} />}
+          </span>
         </label>
       </div>
 

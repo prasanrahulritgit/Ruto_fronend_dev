@@ -15,7 +15,7 @@ const ThreeDModel = ({ url }) => {
       alignItems: 'center',
       height: '50vh',  // Full viewport height for vertical centering
     }}>
-      <div style={{ height: '500px', width: '500px' }}>
+      <div style={{ height: '400px', width: '400px' }}>
         <Canvas>
           <ambientLight intensity={0.5} />
           <directionalLight position={[5, 5, 5]} />

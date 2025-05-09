@@ -110,7 +110,7 @@
 
 /* Inputs */
 form input {
-    width: 90%;
+    width: 93%;
     padding: 12px;
     margin-top: 12px;
     border-radius: 8px;
@@ -131,7 +131,7 @@ form input:focus {
 
 /* Submit */
 .submit-btn {
-    width: 99%;
+    width: 100%;
     margin-top: 18px;
     border: none;
     padding: 14px;
