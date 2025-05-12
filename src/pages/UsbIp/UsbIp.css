@@ -725,4 +725,11 @@ body.light .os-message-container{
     background: #121212;
 }
  
+.UsbIp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  color: #1281d6;
+}
  

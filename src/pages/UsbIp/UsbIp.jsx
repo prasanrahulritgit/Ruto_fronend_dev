@@ -30,46 +30,55 @@ function UsbIp() {
   return (
     <div>
       {view === 'ip' && (
-        <div className="container">
-          <h1 className="title">Select RutoMatrix Device</h1>
-          <div className="cards-grid">
-            {devices.map((device, idx) => (
-              <DeviceCard key={idx} device={device} onClick={() => setView('fpga')} />
-            ))}
+        <>
+          <div className="UsbIp-header">
+            <h2>UsbIP</h2>
           </div>
-        </div>
+          <div className="container">
+            <h1 className="title">Select RutoMatrix Device</h1>
+            <div className="cards-grid">
+              {devices.map((device, idx) => (
+                <DeviceCard key={idx} device={device} onClick={() => setView('fpga')} />
+              ))}
+            </div>
+          </div>
+        </>
       )}
 
-      {view === 'fpga' && (
-        <div className="container">
-          <button
-            className="back-button bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded flex items-center"
-            onClick={() => setView('ip')}
-          >
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          Back
-          </button>
+{view === 'fpga' && (
+        <div>
+          <div className="UsbIp-header">
+            <h2>UsbIP</h2>
+          </div>
+          <div className="container">
+            <button
+              className="back-button"
+              onClick={() => setView('ip')}
+            >
+              <ArrowLeft className="icon" />
+              Back
+            </button>
 
-          <h1 className="title">Select FPGA Device</h1>
-          <div className="cards-grid">
-            <FPGACard
-              title="FPGA Device 180"
-              desc="High-performance computing device"
-              onConnect={() => handleFPGAConnect({ name: 'FPGA Device 180' })}
-              isConnected={connectedFpga === 'FPGA Device 180'}
-            />
-            <FPGACard
-              title="FPGA Device 190"
-              desc="Low-latency optimization device"
-              onConnect={() =>
-                handleFPGAConnect({
-                  name: 'FPGA Device 190',
-                  details:
-                    'Specialized low-latency device designed for high-frequency trading and real-time signal processing.'
-                })
-              }
-              isConnected={connectedFpga === 'FPGA Device 190'}
-            />
+            <h1 className="title">Select FPGA Device</h1>
+            <div className="cards-grid">
+              <FPGACard
+                title="FPGA Device 180"
+                desc="High-performance computing device"
+                onConnect={() => handleFPGAConnect({ name: 'FPGA Device 180' })}
+                isConnected={connectedFpga === 'FPGA Device 180'}
+              />
+              <FPGACard
+                title="FPGA Device 190"
+                desc="Low-latency optimization device"
+                onConnect={() =>
+                  handleFPGAConnect({
+                    name: 'FPGA Device 190',
+                    details: 'Specialized low-latency device for real-time tasks.'
+                  })
+                }
+                isConnected={connectedFpga === 'FPGA Device 190'}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -140,17 +149,17 @@ const FPGAInfoModal = ({ info, onClose, onDisconnect }) => {
   const getMessage = () => {
     if (action === 'attach') {
       if (protocol === 'jtag' && os === 'linux') {
-        return "sudo usbip attach --remote=<replace your tailscale ip > --busid=1-1.1";
+        return 'sudo usbip attach --remote=<replace your tailscale ip> --busid=1-1.1';
       } else if (protocol === 'jtag' && os === 'windows') {
-        return "usbip.exe attach -r <usbip server ip> -b 1-1.1";
+        return 'usbip.exe attach -r <usbip server ip> -b 1-1.1';
       } else if (protocol === 'uart' && os === 'linux') {
-        return "sudo usbip attach --remote=<replace your tailscale ip > --busid=1-1.3";
+        return 'sudo usbip attach --remote=<replace your tailscale ip> --busid=1-1.3';
       } else if (protocol === 'uart' && os === 'windows') {
-        return "usbip.exe attach -r <usbip server ip> -b 1-1.3";
+        return 'usbip.exe attach -r <usbip server ip> -b 1-1.3';
       }
     } else if (action === 'detach') {
-      if (protocol === 'jtag') return "usbip.exe detach -p 01";
-      if (protocol === 'uart') return "usbip.exe detach -p 00";
+      if (protocol === 'jtag') return 'usbip.exe detach -p 01';
+      if (protocol === 'uart') return 'usbip.exe detach -p 00';
     }
     return 'Command Generation ...';
   };
@@ -192,7 +201,10 @@ const FPGAInfoModal = ({ info, onClose, onDisconnect }) => {
                     checked={protocol === 'jtag'}
                     onChange={() => handleProtocolSelect('jtag')}
                   />
-                  <label htmlFor="jtag" className={`radio-label ${protocol === 'jtag' ? 'selected' : ''}`}>
+                  <label
+                    htmlFor="jtag"
+                    className={`radio-label ${protocol === 'jtag' ? 'selected' : ''}`}
+                  >
                     JTAG
                   </label>
 
@@ -204,7 +216,10 @@ const FPGAInfoModal = ({ info, onClose, onDisconnect }) => {
                     checked={protocol === 'uart'}
                     onChange={() => handleProtocolSelect('uart')}
                   />
-                  <label htmlFor="uart" className={`radio-label ${protocol === 'uart' ? 'selected' : ''}`}>
+                  <label
+                    htmlFor="uart"
+                    className={`radio-label ${protocol === 'uart' ? 'selected' : ''}`}
+                  >
                     UART
                   </label>
                 </div>
@@ -243,7 +258,9 @@ const FPGAInfoModal = ({ info, onClose, onDisconnect }) => {
               </div>
             </div>
 
-            <button className="disconnect-btn" onClick={onDisconnect}>Disconnect</button>
+            <button className="disconnect-btn" onClick={onDisconnect}>
+              Disconnect
+            </button>
           </>
         )}
       </div>
