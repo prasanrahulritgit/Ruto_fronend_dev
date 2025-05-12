@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Copy } from 'lucide-react';
+import { ArrowLeft, Copy } from 'lucide-react';
 import './UsbIp.css';
 
 function UsbIp() {
@@ -42,7 +42,14 @@ function UsbIp() {
 
       {view === 'fpga' && (
         <div className="container">
-          <button className="back-button" onClick={() => setView('ip')}>&lt;</button>
+          <button
+            className="back-button bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded flex items-center"
+            onClick={() => setView('ip')}
+          >
+          <ArrowLeft className="w-5 h-5 mr-2" />
+          Back
+          </button>
+
           <h1 className="title">Select FPGA Device</h1>
           <div className="cards-grid">
             <FPGACard
