@@ -3,15 +3,8 @@ import { ArrowLeft, Copy } from 'lucide-react';
 import './UsbIp.css';
 
 function UsbIp() {
-  const [view, setView] = useState('ip');
   const [fpgaInfo, setFpgaInfo] = useState(null);
   const [connectedFpga, setConnectedFpga] = useState(null);
-
-  const devices = [
-    { name: 'Device 1 ECTY', ip: '100.72.64.52' },
-    { name: 'Device 2 Sanjose', ip: '100.56.31.22' },
-    { name: 'Device 3 Texas', ip: '100.16.22.33' }
-  ];
 
   const handleFPGAConnect = (device) => {
     setFpgaInfo({ loading: true, ...device });
@@ -29,59 +22,31 @@ function UsbIp() {
 
   return (
     <div>
-      {view === 'ip' && (
-        <>
-          <div className="UsbIp-header">
-            <h2>UsbIP</h2>
-          </div>
-          <div className="container">
-            <h1 className="title">Select RutoMatrix Device</h1>
-            <div className="cards-grid">
-              {devices.map((device, idx) => (
-                <DeviceCard key={idx} device={device} onClick={() => setView('fpga')} />
-              ))}
-            </div>
-          </div>
-        </>
-      )}
-
-{view === 'fpga' && (
-        <div>
-          <div className="UsbIp-header">
-            <h2>UsbIP</h2>
-          </div>
-          <div className="container">
-            <button
-              className="back-button"
-              onClick={() => setView('ip')}
-            >
-              <ArrowLeft className="icon" />
-              Back
-            </button>
-
-            <h1 className="title">Select FPGA Device</h1>
-            <div className="cards-grid">
-              <FPGACard
-                title="FPGA Device 180"
-                desc="High-performance computing device"
-                onConnect={() => handleFPGAConnect({ name: 'FPGA Device 180' })}
-                isConnected={connectedFpga === 'FPGA Device 180'}
-              />
-              <FPGACard
-                title="FPGA Device 190"
-                desc="Low-latency optimization device"
-                onConnect={() =>
-                  handleFPGAConnect({
-                    name: 'FPGA Device 190',
-                    details: 'Specialized low-latency device for real-time tasks.'
-                  })
-                }
-                isConnected={connectedFpga === 'FPGA Device 190'}
-              />
-            </div>
-          </div>
+      <div className="UsbIp-header">
+        <h2>UsbIP</h2>
+      </div>
+      <div className="container">
+        <h1 className="title">Select FPGA Device</h1>
+        <div className="cards-grid">
+          <FPGACard
+            title="FPGA Device 180"
+            desc="High-performance computing device"
+            onConnect={() => handleFPGAConnect({ name: 'FPGA Device 180' })}
+            isConnected={connectedFpga === 'FPGA Device 180'}
+          />
+          <FPGACard
+            title="FPGA Device 190"
+            desc="Low-latency optimization device"
+            onConnect={() =>
+              handleFPGAConnect({
+                name: 'FPGA Device 190',
+                details: 'Specialized low-latency device for real-time tasks.'
+              })
+            }
+            isConnected={connectedFpga === 'FPGA Device 190'}
+          />
         </div>
-      )}
+      </div>
 
       {fpgaInfo && (
         <FPGAInfoModal
@@ -93,20 +58,6 @@ function UsbIp() {
     </div>
   );
 }
-
-// DeviceCard Component
-const DeviceCard = ({ device, onClick }) => (
-  <div className="card" onClick={onClick}>
-    <div className="card-content">
-      <div className="icon-wrapper">
-        <div className="pulse-ring" />
-        <div className="status-dot" />
-      </div>
-      <h2>{device.name}</h2>
-      <p>{device.ip}</p>
-    </div>
-  </div>
-);
 
 // FPGACard Component
 const FPGACard = ({ title, desc, onConnect, isConnected }) => (
@@ -201,10 +152,7 @@ const FPGAInfoModal = ({ info, onClose, onDisconnect }) => {
                     checked={protocol === 'jtag'}
                     onChange={() => handleProtocolSelect('jtag')}
                   />
-                  <label
-                    htmlFor="jtag"
-                    className={`radio-label ${protocol === 'jtag' ? 'selected' : ''}`}
-                  >
+                  <label htmlFor="jtag" className={`radio-label ${protocol === 'jtag' ? 'selected' : ''}`}>
                     JTAG
                   </label>
 
@@ -216,10 +164,7 @@ const FPGAInfoModal = ({ info, onClose, onDisconnect }) => {
                     checked={protocol === 'uart'}
                     onChange={() => handleProtocolSelect('uart')}
                   />
-                  <label
-                    htmlFor="uart"
-                    className={`radio-label ${protocol === 'uart' ? 'selected' : ''}`}
-                  >
+                  <label htmlFor="uart" className={`radio-label ${protocol === 'uart' ? 'selected' : ''}`}>
                     UART
                   </label>
                 </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   MonitorSmartphone,
@@ -10,12 +10,29 @@ import {
   Share2,
   LayoutGrid,
   Brain,
+  User,
   LogOut
 } from 'lucide-react';
 import styles from './Sidebar.module.css';
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+
+  // Mock user data (replace with real user context/state if needed)
+  const user = {
+    name: 'Admin',
+    email: 'john@example.com',
+  };
+
+  const handleLogout = () => {
+    // Add any logout logic (e.g., clearing auth tokens)
+    navigate('/auth');
+  };
+
+  const toggleProfileMenu = () => {
+    setShowProfileMenu(!showProfileMenu);
+  };
 
   const menuItems = [
     { to: '/videostream', label: 'VirtualDesk', icon: <MonitorSmartphone size={18} /> },
@@ -29,19 +46,28 @@ const Sidebar = () => {
     { to: '/settings', label: 'Settings', icon: <LayoutGrid size={18} /> },
   ];
 
-  const handleLogout = () => {
-    navigate('/auth');
-  };
-
   return (
     <div className={styles.sidebar}>
-      <div className={styles.logoutMenu}>
-        <button className={styles.logoutButton} onClick={handleLogout}>
-          <LogOut size={18} />
-          <span className={styles.label}>Logout</span>
+      {/* Profile Section at Top */}
+      <div className={styles.profileSection}>
+        <button className={styles.profileButton} onClick={toggleProfileMenu}>
+          <User size={20} />
+          <span className={styles.label}>Profile</span>
         </button>
+        {showProfileMenu && (
+          <div className={styles.profileDropdown}>
+            <div className={styles.profileContent}>
+              <div className={styles.username}>{user.name}</div>
+              <button className={styles.logoutButton} onClick={handleLogout}>
+                <LogOut size={16} />
+                <span className={styles.label}>Logout</span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
+      {/* Navigation Menu */}
       <div className={styles.menu}>
         <ul>
           {menuItems.map((item, i) => (

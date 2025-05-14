@@ -178,10 +178,10 @@ form input.dark {
     color: #000;
 }
 .left-panel.light {
-    background-image: url('/src/assets/cool_backgrounds2.png');
+    background-image: url('/src/assets/cool_backgrounds.png');
     background-size: cover;
+    background-position: center;
     background-repeat: no-repeat;
-    color: white;
   }
 .right-panel.light {
     background-color: #ffffff;

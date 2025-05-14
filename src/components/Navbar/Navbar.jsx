@@ -34,7 +34,6 @@ const Navbar = () => {
   const location = useLocation();
   const icon = routeIcons[location.pathname] || <MonitorSmartphone size={20} color="#fff" />;
 
-  // Functions to handle clicks
   const openRutomatrix = () => {
     window.open('https://embedded.tessolve.com/rutomatrix/', '_blank');
   };
@@ -45,23 +44,29 @@ const Navbar = () => {
 
   return (
     <div className={styles.navbar}>
-      <img
-        src={RutomatrixLogo}
-        alt="Rutomatrix Logo"
-        className={styles.logo}
-        onClick={openRutomatrix}
-        style={{ cursor: 'pointer' }}
-      />
-      <div className={styles.iconContainer}>
+      <div className={styles.left}>
+        <img
+          src={RutomatrixLogo}
+          alt="Rutomatrix Logo"
+          className={styles.logo}
+          onClick={openRutomatrix}
+          style={{ cursor: 'pointer' }}
+        />
+      </div>
+
+      <div className={styles.center}>
         {icon}
       </div>
-      <img
-        src={TessolveLogo}
-        alt="Tessolve Logo"
-        className={styles.logo}
-        onClick={openTessolve}
-        style={{ cursor: 'pointer', marginLeft: 'auto' }}
-      />
+
+      <div className={styles.right}>
+        <img
+          src={TessolveLogo}
+          alt="Tessolve Logo"
+          className={styles.logo}
+          onClick={openTessolve}
+          style={{ cursor: 'pointer' }}
+        />
+      </div>
     </div>
   );
 };
