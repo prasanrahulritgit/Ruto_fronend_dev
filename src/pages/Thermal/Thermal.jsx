@@ -7,13 +7,12 @@ export default function Thermal() {
   const videoRef2 = useRef(null);
   const videoRef3 = useRef(null);
   const canvasRef = useRef(null);
-  const [started, setStarted] = useState(false);
+  const [startedCameras, setStartedCameras] = useState({});
   const [image, setImage] = useState(null);
   const [servo, setServo] = useState({ horizontal: 90, vertical: 90 });
   const [activeCamera, setActiveCamera] = useState('ALL');
   const [selectedCamera, setSelectedCamera] = useState('ALL');
-  
-  // Temperature stats
+
   const [tempStats, setTempStats] = useState({
     maxTemp: 0,
     minTemp: 0,
@@ -21,28 +20,41 @@ export default function Thermal() {
     centerTemp: 0
   });
 
-  useEffect(() => {
-    const videoEl1 = videoRef1.current;
-    const videoEl2 = videoRef2.current;
-    const videoEl3 = videoRef3.current;
+  const cameraAPIMap = {
+    'camera-1': 'https://api.example.com/camera-1/',
+    'camera-2': 'https://api.example.com/camera-2/',
+    'camera-3': 'https://api.example.com/camera-3/'
+  };
 
+  useEffect(() => {
     return () => {
-      [videoEl1, videoEl2, videoEl3].forEach(video => {
-        if (video?.srcObject) {
-          video.srcObject.getTracks().forEach(t => t.stop());
+      [videoRef1, videoRef2, videoRef3].forEach(videoRef => {
+        if (videoRef.current?.srcObject) {
+          videoRef.current.srcObject.getTracks().forEach(t => t.stop());
         }
       });
     };
   }, []);
 
-  const startCamera = async (videoRef) => {
+  const startCamera = async (cameraKey, videoRef) => {
+    if (startedCameras[cameraKey]) return; // Prevent duplicate starts
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef.current.srcObject = stream;
-      setStarted(true);
+      videoRef.current.src = cameraAPIMap[cameraKey];
+      videoRef.current.load();
+      videoRef.current.play();
+      setStartedCameras(prev => ({ ...prev, [cameraKey]: true }));
     } catch (e) {
-      console.error('Camera error', e);
+      console.error(`Error loading ${cameraKey}`, e);
     }
+  };
+
+  const Start_Api_call = () => {
+    ['camera-1', 'camera-2', 'camera-3'].forEach((cameraKey) => {
+      const videoRef =
+        cameraKey === 'camera-1' ? videoRef1 :
+        cameraKey === 'camera-2' ? videoRef2 : videoRef3;
+      startCamera(cameraKey, videoRef);
+    });
   };
 
   const capture = () => {
@@ -67,6 +79,11 @@ export default function Thermal() {
     } else {
       setActiveCamera(cameraIndex);
       setSelectedCamera(cameraIndex);
+      const videoRef =
+        cameraIndex === 'camera-1' ? videoRef1 :
+        cameraIndex === 'camera-2' ? videoRef2 : videoRef3;
+
+      startCamera(cameraIndex, videoRef);
     }
   };
 
@@ -80,19 +97,24 @@ export default function Thermal() {
     setSelectedCamera(selected);
     setActiveCamera(selected);
     if (selected !== 'ALL') {
-      const videoRef = selected === 'camera-1' ? videoRef1 : selected === 'camera-2' ? videoRef2 : videoRef3;
-      startCamera(videoRef);
+      const videoRef =
+        selected === 'camera-1' ? videoRef1 :
+        selected === 'camera-2' ? videoRef2 : videoRef3;
+      startCamera(selected, videoRef);
     }
   };
 
   return (
-    <div className="camera-container">
-      <div className="camera-panel">
-        <div className="camera-header">
+    <div className="thermal-container">
+      <div className="thermal-panel">
+        <div className="thermal-header">
           <h2>Thermal Feed</h2>
-          <div className="camera-controls">
+          <button className="thermal-capture-button" onClick={Start_Api_call}>
+           Start-Streaming
+          </button>
+          <div className="thermal-controls">
             <select
-              className="camera-select"
+              className="thermal-select"
               value={selectedCamera}
               onChange={handleDropdownChange}
             >
@@ -101,25 +123,31 @@ export default function Thermal() {
               <option value="camera-2">Camera 2</option>
               <option value="camera-3">Camera 3</option>
             </select>
-            <button className="camera-capture-button" onClick={capture}>
+            <button className="thermal-capture-button" onClick={capture}>
               <CameraIcon size={20} /> Capture
             </button>
           </div>
         </div>
 
-        <div className="camera-feeds">
-          {['camera-1', 'camera-2', 'camera-3'].map((camera, index) => {
+        <div className={`thermal-feeds ${activeCamera !== 'ALL' ? 'fullscreen-active' : ''}`}>
+          {['camera-1', 'camera-2', 'camera-3'].map((camera) => {
             if (activeCamera === 'ALL' || activeCamera === camera) {
+              const ref =
+                camera === 'camera-1' ? videoRef1 :
+                camera === 'camera-2' ? videoRef2 : videoRef3;
+
               return (
                 <div
-                  className={`camera-feed ${camera} ${activeCamera === camera ? 'fullscreen' : ''}`}
+                  className={`thermal-feed ${camera} ${activeCamera === camera ? 'fullscreen' : ''}`}
                   key={camera}
                   onClick={() => toggleFullscreen(camera)}
                 >
-                  <div className="camera-feed-container">
-                    {started
-                      ? <video ref={videoRef1} autoPlay playsInline className="camera-stream" />
-                      : <div className="camera-placeholder">Select Camera to Start</div>}
+                  <div className="thermal-feed-container">
+                    {startedCameras[camera] ? (
+                      <video ref={ref} controls autoPlay playsInline className="thermal-stream" />
+                    ) : (
+                      <div className="thermal-placeholder">Click to Start {camera.replace('-', ' ')}</div>
+                    )}
                     <div className="fullscreen-icon">
                       {activeCamera === camera ? <X size={20} /> : <Maximize2 size={20} />}
                     </div>
@@ -133,13 +161,12 @@ export default function Thermal() {
 
         <canvas ref={canvasRef} style={{ display: 'none' }} />
         {image && (
-          <div className="camera-feed">
-            <img src={image} alt="captured" className="camera-stream" />
+          <div className="thermal-feed">
+            <img src={image} alt="captured" className="thermal-stream" />
           </div>
         )}
       </div>
 
-      {/* Servo Panel */}
       <div className="servo-panel">
         <h3>Dual Servo Control</h3>
 
@@ -165,30 +192,26 @@ export default function Thermal() {
           />
         </div>
 
-      {/* Thermal Analysis Panel Below Servo */}
-      <div className="thermal-analysis">
-        <h3 className="thermal-analysis-title">Temperature Analysis</h3>
-
-        <div className="thermal-stats">
-          <div className="thermal-stat">
-            <span>Maximum Temp:</span>
-            <span className="thermal-high">{tempStats.maxTemp}°C</span>
+        <div className="thermal-analysis">
+          <h3 className="thermal-analysis-title">Temperature Analysis</h3>
+          <div className="thermal-stats">
+            <div className="thermal-stat">
+              <span>Maximum Temp:</span>
+              <span className="thermal-high">{tempStats.maxTemp}°C</span>
+            </div>
+            <div className="thermal-stat">
+              <span>Minimum Temp:</span>
+              <span className="thermal-low">{tempStats.minTemp}°C</span>
+            </div>
+            <div className="thermal-stat">
+              <span>Average Temp:</span>
+              <span className="thermal-avg">{tempStats.avgTemp}°C</span>
+            </div>
+            <button className="thermal-export-button">
+              Export Thermal Data
+            </button>
           </div>
-
-          <div className="thermal-stat">
-            <span>Minimum Temp:</span>
-            <span className="thermal-low">{tempStats.minTemp}°C</span>
-          </div>
-
-          <div className="thermal-stat">
-            <span>Average Temp:</span>
-            <span className="thermal-avg">{tempStats.avgTemp}°C</span>
-          </div>
-          <button className="thermal-export-button">
-            Export Thermal Data
-          </button>
         </div>
-      </div>
       </div>
     </div>
   );
