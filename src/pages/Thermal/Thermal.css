@@ -263,3 +263,27 @@
 .thermal-feed.fullscreen {
   width: 100%;
 }
+
+.refresh-icon-button {
+  background-color: #f0f0f0;
+  border: none;
+  margin-left: 8px;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.refresh-icon-button:hover {
+  background-color: #ff6a00;
+}
+
+.thermal-header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}

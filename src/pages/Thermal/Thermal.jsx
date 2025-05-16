@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Camera as CameraIcon, Maximize2, X } from 'lucide-react';
+import { Camera as CameraIcon, Maximize2, X,RefreshCw} from 'lucide-react';
 import html2canvas from 'html2canvas';
 import './Thermal.css';
 
@@ -28,6 +28,30 @@ export default function Thermal() {
     ['camera-1', 'camera-2', 'camera-3'].forEach((cameraKey) => {
       setStartedCameras((prev) => ({ ...prev, [cameraKey]: true }));
     });
+  };
+
+  const Cors = async () => {
+    window.open('https://100.68.107.103:7123/verified', '_blank');
+    try {
+      const response = await fetch('https://100.68.107.103:7123/verified', {
+        method: 'GET',
+        mode: 'cors'
+      });
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      const data = await response.json();
+      console.log('Verification API Response:', data);
+
+      if (data.ok && data.status === 'verified') {
+        alert('Camera is verified!');
+      } else {
+        alert('Camera verification failed.');
+      }
+    } catch (error) {
+      console.error('Verification API Error:', error);
+      alert('Verifiying camera Perimisson.');
+    }
   };
 
   
@@ -75,9 +99,14 @@ export default function Thermal() {
       <div className="thermal-panel">
         <div className="thermal-header">
           <h2>Thermal Feed</h2>
+        <div className="thermal-header-buttons">
           <button className="thermal-capture-button" onClick={Start_Api_call}>
             Start-Streaming
           </button>
+          <button className="refresh-icon-button" onClick={Cors} title="Refresh">
+            <RefreshCw size={16} />
+          </button>
+        </div>
           <div className="thermal-controls">
             <select
               className="thermal-select"

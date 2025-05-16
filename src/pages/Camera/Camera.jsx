@@ -95,7 +95,7 @@ export default function Camera() {
             Start-Streaming
           </button>
           <button className="refresh-icon-button" onClick={Cors} title="Refresh">
-            <RefreshCw size={20} />
+            <RefreshCw size={16}/>
           </button>
         </div>
           <div className="camera-controls">
