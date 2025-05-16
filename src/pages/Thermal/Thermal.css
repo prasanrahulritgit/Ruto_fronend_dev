@@ -110,7 +110,7 @@
 }
   
 .thermal-stream {
-  width: 100%;
+  width: 85%;
   height: 100%;
   object-fit: cover;
 }
@@ -231,7 +231,7 @@
   background-color: #000;
   border-radius: 10px;
   overflow: hidden;
-  aspect-ratio: 16/7;
+  aspect-ratio: 16/10;
   display: flex;
   align-items: center;
   justify-content: center;

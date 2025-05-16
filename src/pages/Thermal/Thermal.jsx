@@ -1,17 +1,15 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Camera as CameraIcon, Maximize2, X } from 'lucide-react';
+import html2canvas from 'html2canvas';
 import './Thermal.css';
 
 export default function Thermal() {
-  const videoRef1 = useRef(null);
-  const videoRef2 = useRef(null);
-  const videoRef3 = useRef(null);
   const canvasRef = useRef(null);
-  const [startedCameras, setStartedCameras] = useState({});
   const [image, setImage] = useState(null);
   const [servo, setServo] = useState({ horizontal: 90, vertical: 90 });
   const [activeCamera, setActiveCamera] = useState('ALL');
   const [selectedCamera, setSelectedCamera] = useState('ALL');
+  const [startedCameras, setStartedCameras] = useState({});
 
   const [tempStats, setTempStats] = useState({
     maxTemp: 0,
@@ -21,54 +19,22 @@ export default function Thermal() {
   });
 
   const cameraAPIMap = {
-    'camera-1': 'https://api.example.com/camera-1/',
+    'camera-1': 'http://100.68.107.103:5000/video_feed',
     'camera-2': 'https://api.example.com/camera-2/',
     'camera-3': 'https://api.example.com/camera-3/'
   };
 
-  useEffect(() => {
-    return () => {
-      [videoRef1, videoRef2, videoRef3].forEach(videoRef => {
-        if (videoRef.current?.srcObject) {
-          videoRef.current.srcObject.getTracks().forEach(t => t.stop());
-        }
-      });
-    };
-  }, []);
-
-  const startCamera = async (cameraKey, videoRef) => {
-    if (startedCameras[cameraKey]) return; // Prevent duplicate starts
-    try {
-      videoRef.current.src = cameraAPIMap[cameraKey];
-      videoRef.current.load();
-      videoRef.current.play();
-      setStartedCameras(prev => ({ ...prev, [cameraKey]: true }));
-    } catch (e) {
-      console.error(`Error loading ${cameraKey}`, e);
-    }
-  };
-
   const Start_Api_call = () => {
     ['camera-1', 'camera-2', 'camera-3'].forEach((cameraKey) => {
-      const videoRef =
-        cameraKey === 'camera-1' ? videoRef1 :
-        cameraKey === 'camera-2' ? videoRef2 : videoRef3;
-      startCamera(cameraKey, videoRef);
+      setStartedCameras((prev) => ({ ...prev, [cameraKey]: true }));
     });
   };
 
-  const capture = () => {
-    const video = videoRef1.current;
-    const canvas = canvasRef.current;
-    canvas.width = video.videoWidth;
-    canvas.height = video.videoHeight;
-    canvas.getContext('2d').drawImage(video, 0, 0);
-    setImage(canvas.toDataURL('image/png'));
-  };
+  
 
   const handleServoChange = (axis) => (e) => {
     const val = parseInt(e.target.value, 10);
-    setServo(s => ({ ...s, [axis]: val }));
+    setServo((s) => ({ ...s, [axis]: val }));
     console.log(`Servo ${axis}: ${val}°`);
   };
 
@@ -79,17 +45,8 @@ export default function Thermal() {
     } else {
       setActiveCamera(cameraIndex);
       setSelectedCamera(cameraIndex);
-      const videoRef =
-        cameraIndex === 'camera-1' ? videoRef1 :
-        cameraIndex === 'camera-2' ? videoRef2 : videoRef3;
-
-      startCamera(cameraIndex, videoRef);
+      setStartedCameras((prev) => ({ ...prev, [cameraIndex]: true }));
     }
-  };
-
-  const closeFullscreen = () => {
-    setActiveCamera('ALL');
-    setSelectedCamera('ALL');
   };
 
   const handleDropdownChange = (e) => {
@@ -97,12 +54,21 @@ export default function Thermal() {
     setSelectedCamera(selected);
     setActiveCamera(selected);
     if (selected !== 'ALL') {
-      const videoRef =
-        selected === 'camera-1' ? videoRef1 :
-        selected === 'camera-2' ? videoRef2 : videoRef3;
-      startCamera(selected, videoRef);
+      setStartedCameras((prev) => ({ ...prev, [selected]: true }));
     }
   };
+
+  const capture = () => {
+    html2canvas(document.body).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      // Open captured image in a new tab or save it:
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'full_page_capture.png';
+      link.click();
+    });
+  };
+  
 
   return (
     <div className="thermal-container">
@@ -110,7 +76,7 @@ export default function Thermal() {
         <div className="thermal-header">
           <h2>Thermal Feed</h2>
           <button className="thermal-capture-button" onClick={Start_Api_call}>
-           Start-Streaming
+            Start-Streaming
           </button>
           <div className="thermal-controls">
             <select
@@ -132,10 +98,6 @@ export default function Thermal() {
         <div className={`thermal-feeds ${activeCamera !== 'ALL' ? 'fullscreen-active' : ''}`}>
           {['camera-1', 'camera-2', 'camera-3'].map((camera) => {
             if (activeCamera === 'ALL' || activeCamera === camera) {
-              const ref =
-                camera === 'camera-1' ? videoRef1 :
-                camera === 'camera-2' ? videoRef2 : videoRef3;
-
               return (
                 <div
                   className={`thermal-feed ${camera} ${activeCamera === camera ? 'fullscreen' : ''}`}
@@ -144,9 +106,15 @@ export default function Thermal() {
                 >
                   <div className="thermal-feed-container">
                     {startedCameras[camera] ? (
-                      <video ref={ref} controls autoPlay playsInline className="thermal-stream" />
+                      <img
+                        src={cameraAPIMap[camera]}
+                        alt={`${camera} stream`}
+                        className="thermal-stream"
+                      />
                     ) : (
-                      <div className="thermal-placeholder">Click to Start {camera.replace('-', ' ')}</div>
+                      <div className="thermal-placeholder">
+                        Click to Start {camera.replace('-', ' ')}
+                      </div>
                     )}
                     <div className="fullscreen-icon">
                       {activeCamera === camera ? <X size={20} /> : <Maximize2 size={20} />}

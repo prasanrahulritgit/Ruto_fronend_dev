@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import {
   Camera as CameraIcon,
   Maximize2,
-  X
+  X,
+  RefreshCw
 } from 'lucide-react';
 import './Camera.css';
 
@@ -11,34 +12,45 @@ export default function Camera() {
   const videoRef2 = useRef(null);
   const videoRef3 = useRef(null);
   const canvasRef = useRef(null);
+
   const [started, setStarted] = useState(false);
   const [image, setImage] = useState(null);
   const [servo, setServo] = useState({ horizontal: 90, vertical: 90 });
   const [activeCamera, setActiveCamera] = useState('ALL');
   const [selectedCamera, setSelectedCamera] = useState('ALL');
 
-  useEffect(() => {
-    const videoEl1 = videoRef1.current;
-    const videoEl2 = videoRef2.current;
-    const videoEl3 = videoRef3.current;
+  const cameraAPIMap = {
+    'camera-1': 'https://100.68.107.103:7123/stream.mjpg',
+    'camera-2': 'https://api.example.com/camera-2',
+    'camera-3': 'https://api.example.com/camera-3'
+  };
 
-    return () => {
-      [videoEl1, videoEl2, videoEl3].forEach(video => {
-        if (video?.srcObject) {
-          video.srcObject.getTracks().forEach(t => t.stop());
-        }
-      });
-    };
-  }, []);
-
-  const startCamera = async (videoRef) => {
+  const Cors = async () => {
+    window.open('https://100.68.107.103:7123/verified', '_blank');
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      videoRef.current.srcObject = stream;
-      setStarted(true);
-    } catch (e) {
-      console.error('Camera error', e);
+      const response = await fetch('https://100.68.107.103:7123/verified', {
+        method: 'GET',
+        mode: 'cors'
+      });
+
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      const data = await response.json();
+      console.log('Verification API Response:', data);
+
+      if (data.ok && data.status === 'verified') {
+        alert('Camera is verified!');
+      } else {
+        alert('Camera verification failed.');
+      }
+    } catch (error) {
+      console.error('Verification API Error:', error);
+      alert('Verifiying camera Perimisson.');
     }
+  };
+
+  const startStreaming = () => {
+    setStarted(true);
   };
 
   const capture = () => {
@@ -66,19 +78,11 @@ export default function Camera() {
     }
   };
 
-  const closeFullscreen = () => {
-    setActiveCamera('ALL');
-    setSelectedCamera('ALL');
-  };
-
   const handleDropdownChange = (e) => {
     const selected = e.target.value;
     setSelectedCamera(selected);
     setActiveCamera(selected);
-    if (selected !== 'ALL') {
-      const videoRef = selected === 'camera-1' ? videoRef1 : selected === 'camera-2' ? videoRef2 : videoRef3;
-      startCamera(videoRef);
-    }
+    setStarted(true);
   };
 
   return (
@@ -86,6 +90,14 @@ export default function Camera() {
       <div className="camera-panel">
         <div className="camera-header">
           <h2>Camera Feed</h2>
+          <div className="camera-header-buttons">
+          <button className="camera-capture-button" onClick={startStreaming}>
+            Start-Streaming
+          </button>
+          <button className="refresh-icon-button" onClick={Cors} title="Refresh">
+            <RefreshCw size={20} />
+          </button>
+        </div>
           <div className="camera-controls">
             <select
               className="camera-select"
@@ -104,53 +116,34 @@ export default function Camera() {
         </div>
 
         <div className="camera-feeds">
-          {(activeCamera === 'ALL' || activeCamera === 'camera-1') && (
-            <div
-              className={`camera-feed camera-1 ${activeCamera === 'camera-1' ? 'fullscreen' : ''}`}
-              onClick={() => toggleFullscreen('camera-1')}
-            >
-              <div className="camera-feed-container">
-                {started
-                  ? <video ref={videoRef1} autoPlay playsInline className="camera-stream" />
-                  : <div className="camera-placeholder">Select Camera to Start</div>}
-                <div className="fullscreen-icon">
-                  {activeCamera === 'camera-1' ? <X size={20} /> : <Maximize2 size={20} />}
+          {['camera-1', 'camera-2', 'camera-3'].map((camera) => {
+            if (activeCamera === 'ALL' || activeCamera === camera) {
+              const ref = camera === 'camera-1' ? videoRef1 : camera === 'camera-2' ? videoRef2 : videoRef3;
+              return (
+                <div
+                  className={`camera-feed ${camera} ${activeCamera === camera ? 'fullscreen' : ''}`}
+                  onClick={() => toggleFullscreen(camera)}
+                  key={camera}
+                >
+                  <div className="camera-feed-container">
+                    {started ? (
+                      <img
+                        src={cameraAPIMap[camera]}
+                        alt={`${camera} stream`}
+                        className="camera-stream"
+                      />
+                    ) : (
+                      <div className="camera-placeholder">Select Camera to Start</div>
+                    )}
+                    <div className="fullscreen-icon">
+                      {activeCamera === camera ? <X size={20} /> : <Maximize2 size={20} />}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          )}
-
-          {(activeCamera === 'ALL' || activeCamera === 'camera-2') && (
-            <div
-              className={`camera-feed camera-2 ${activeCamera === 'camera-2' ? 'fullscreen' : ''}`}
-              onClick={() => toggleFullscreen('camera-2')}
-            >
-              <div className="camera-feed-container">
-                {started
-                  ? <video ref={videoRef2} autoPlay playsInline className="camera-stream" />
-                  : <div className="camera-placeholder">Select Camera to Start</div>}
-                <div className="fullscreen-icon">
-                  {activeCamera === 'camera-2' ? <X size={20} /> : <Maximize2 size={20} />}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {(activeCamera === 'ALL' || activeCamera === 'camera-3') && (
-            <div
-              className={`camera-feed camera-3 ${activeCamera === 'camera-3' ? 'fullscreen' : ''}`}
-              onClick={() => toggleFullscreen('camera-3')}
-            >
-              <div className="camera-feed-container">
-                {started
-                  ? <video ref={videoRef3} autoPlay playsInline className="camera-stream" />
-                  : <div className="camera-placeholder">Select Camera to Start</div>}
-                <div className="fullscreen-icon">
-                  {activeCamera === 'camera-3' ? <X size={20} /> : <Maximize2 size={20} />}
-                </div>
-              </div>
-            </div>
-          )}
+              );
+            }
+            return null;
+          })}
         </div>
 
         <canvas ref={canvasRef} style={{ display: 'none' }} />
