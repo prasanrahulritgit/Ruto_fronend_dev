@@ -52,7 +52,6 @@ const Sidebar = () => {
       <div className={styles.profileSection}>
         <button className={styles.profileButton} onClick={toggleProfileMenu}>
           <User size={20} />
-          <span className={styles.label}>Profile</span>
         </button>
         {showProfileMenu && (
           <div className={styles.profileDropdown}>

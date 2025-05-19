@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Camera as CameraIcon,
   Maximize2,
@@ -45,12 +45,29 @@ export default function Camera() {
       }
     } catch (error) {
       console.error('Verification API Error:', error);
-      alert('Verifiying camera Perimisson.');
+      alert('Verifiying camera Permission.');
     }
   };
 
-  const startStreaming = () => {
-    setStarted(true);
+  const startStreaming = async () => {
+    try {
+      const response = await fetch('http://100.68.107.103:8000/start-camera', {
+        method: 'POST'
+      });
+
+      const data = await response.json();
+      console.log('Start Camera Response:', data);
+
+      if (response.ok && data.status === 'success') {
+        alert('Camera script started successfully');
+        setStarted(true);
+      } else {
+        alert('Failed to start camera script');
+      }
+    } catch (error) {
+      console.error('Error starting camera:', error);
+      alert('Error contacting backend');
+    }
   };
 
   const capture = () => {
@@ -91,13 +108,13 @@ export default function Camera() {
         <div className="camera-header">
           <h2>Camera Feed</h2>
           <div className="camera-header-buttons">
-          <button className="camera-capture-button" onClick={startStreaming}>
-            Start-Streaming
-          </button>
-          <button className="refresh-icon-button" onClick={Cors} title="Refresh">
-            <RefreshCw size={16}/>
-          </button>
-        </div>
+            <button className="camera-capture-button" onClick={startStreaming}>
+              Start-Streaming
+            </button>
+            <button className="refresh-icon-button" onClick={Cors} title="Refresh">
+              <RefreshCw size={16} />
+            </button>
+          </div>
           <div className="camera-controls">
             <select
               className="camera-select"
