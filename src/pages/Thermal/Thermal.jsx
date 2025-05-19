@@ -19,7 +19,7 @@ export default function Thermal() {
   });
 
   const cameraAPIMap = {
-    'camera-1': 'http://100.68.107.103:5000/video_feed',
+    'camera-1': 'https://100.68.107.103:7123/thermal',
     'camera-2': 'https://api.example.com/camera-2/',
     'camera-3': 'https://api.example.com/camera-3/'
   };
@@ -31,9 +31,9 @@ export default function Thermal() {
   };
 
   const Cors = async () => {
-    window.open('https://100.68.107.103:7123/verified', '_blank');
+    window.open('https://100.68.107.103:7123/thermal_verified', '_blank');
     try {
-      const response = await fetch('https://100.68.107.103:7123/verified', {
+      const response = await fetch('https://100.68.107.103:7123/thermal_verified', {
         method: 'GET',
         mode: 'cors'
       });

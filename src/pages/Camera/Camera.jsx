@@ -20,15 +20,15 @@ export default function Camera() {
   const [selectedCamera, setSelectedCamera] = useState('ALL');
 
   const cameraAPIMap = {
-    'camera-1': 'https://100.68.107.103:7123/stream.mjpg',
+    'camera-1': 'https://100.68.107.103:7123/camera.mjpg',
     'camera-2': 'https://api.example.com/camera-2',
     'camera-3': 'https://api.example.com/camera-3'
   };
 
   const Cors = async () => {
-    window.open('https://100.68.107.103:7123/verified', '_blank');
+    window.open('https://100.68.107.103:7123/camera_verified', '_blank');
     try {
-      const response = await fetch('https://100.68.107.103:7123/verified', {
+      const response = await fetch('https://100.68.107.103:7123/camera_verified', {
         method: 'GET',
         mode: 'cors'
       });
