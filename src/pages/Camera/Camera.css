@@ -82,7 +82,7 @@
   background-color: #000;
   border-radius: 10px;
   overflow: hidden;
-  aspect-ratio: 16/7;
+  aspect-ratio: 16/10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -98,7 +98,7 @@
 }
 
 .camera-stream {
-  width: 100%;
+  width: 85%;
   height: 100%;
   object-fit: cover;
 }
@@ -158,4 +158,29 @@
 .camera-feed.camera-3 {
   margin-left: auto;  /* Push to the right */
   margin-right: auto; /* Center horizontally */
+}
+
+.refresh-icon-button {
+  background-color: #f0f0f0;
+  border: none;
+  margin-left: 8px;
+  padding: 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff6a00;
+}
+
+.refresh-icon-button:hover {
+  background-color: #e65c00;
+}
+
+.camera-header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
 }
