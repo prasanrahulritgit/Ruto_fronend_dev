@@ -18,11 +18,13 @@ export default function Camera() {
   const [servo, setServo] = useState({ horizontal: 90, vertical: 90 });
   const [activeCamera, setActiveCamera] = useState('ALL');
   const [selectedCamera, setSelectedCamera] = useState('ALL');
+  const [isConnecting, setIsConnecting] = useState(false);
+  const [isStopping, setIsStopping] = useState(false);  // NEW
 
   const cameraAPIMap = {
     'camera-1': 'https://100.68.107.103:7123/camera.mjpg',
-    'camera-2': 'https://api.example.com/camera-2',
-    'camera-3': 'https://api.example.com/camera-3'
+    'camera-2': '',
+    'camera-3': ''
   };
 
   const Cors = async () => {
@@ -45,11 +47,13 @@ export default function Camera() {
       }
     } catch (error) {
       console.error('Verification API Error:', error);
-      alert('Verifiying camera Permission.');
+      alert('Verifying camera permission.');
     }
   };
 
   const startStreaming = async () => {
+    setIsConnecting(true);
+
     try {
       const response = await fetch('http://100.68.107.103:8000/start-camera', {
         method: 'POST'
@@ -58,14 +62,49 @@ export default function Camera() {
       const data = await response.json();
       console.log('Start Camera Response:', data);
 
-      if (response.ok && data.status === 'success') {
-        alert('Camera script started successfully');
-        setStarted(true);
-      } else {
-        alert('Failed to start camera script');
-      }
+      setTimeout(() => {
+        setIsConnecting(false);
+
+        if (response.ok && data.status === 'success') {
+          setStarted(true);
+          alert('Camera script started successfully');
+        } else {
+          alert('Failed to start camera script');
+        }
+      }, 5000);
+
     } catch (error) {
       console.error('Error starting camera:', error);
+      setIsConnecting(false);
+      alert('Error contacting backend');
+    }
+  };
+
+  const stopStreaming = async () => {
+    setIsStopping(true);  // show stop loading overlay
+
+    try {
+      const response = await fetch('http://100.68.107.103:8000/stop-camera', {
+        method: 'POST'
+      });
+
+      const data = await response.json();
+      console.log('Stop Camera Response:', data);
+
+      setTimeout(() => {
+        setIsStopping(false);
+
+        if (response.ok && data.status === 'success') {
+          alert('Camera script stopped successfully');
+          setStarted(false);
+        } else {
+          alert('Failed to stop camera script');
+        }
+      }, 5000);
+
+    } catch (error) {
+      console.error('Error stopping camera:', error);
+      setIsStopping(false);
       alert('Error contacting backend');
     }
   };
@@ -111,6 +150,9 @@ export default function Camera() {
             <button className="camera-capture-button" onClick={startStreaming}>
               Start-Streaming
             </button>
+            <button className="camera-capture-button" onClick={stopStreaming}>
+              Stop-Streaming
+            </button>
             <button className="refresh-icon-button" onClick={Cors} title="Refresh">
               <RefreshCw size={16} />
             </button>
@@ -135,7 +177,8 @@ export default function Camera() {
         <div className="camera-feeds">
           {['camera-1', 'camera-2', 'camera-3'].map((camera) => {
             if (activeCamera === 'ALL' || activeCamera === camera) {
-              const ref = camera === 'camera-1' ? videoRef1 : camera === 'camera-2' ? videoRef2 : videoRef3;
+              const hasApi = cameraAPIMap[camera]?.trim() !== '';
+
               return (
                 <div
                   className={`camera-feed ${camera} ${activeCamera === camera ? 'fullscreen' : ''}`}
@@ -143,7 +186,23 @@ export default function Camera() {
                   key={camera}
                 >
                   <div className="camera-feed-container">
-                    {started ? (
+                    {/* Show connecting overlay on start */}
+                    {isConnecting && hasApi && (
+                      <div className="camera-connecting-overlay">
+                        <div className="mini-spinner" />
+                        Connecting...
+                      </div>
+                    )}
+
+                    {/* Show stopping overlay on stop */}
+                    {isStopping && hasApi && (
+                      <div className="camera-connecting-overlay">
+                        <div className="mini-spinner" />
+                        Disconnecting...
+                      </div>
+                    )}
+
+                    {started && hasApi ? (
                       <img
                         src={cameraAPIMap[camera]}
                         alt={`${camera} stream`}
@@ -152,6 +211,7 @@ export default function Camera() {
                     ) : (
                       <div className="camera-placeholder">Select Camera to Start</div>
                     )}
+
                     <div className="fullscreen-icon">
                       {activeCamera === camera ? <X size={20} /> : <Maximize2 size={20} />}
                     </div>

@@ -287,3 +287,48 @@
   gap: 8px;
   margin-bottom: 8px;
 }
+.camera-connecting-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-weight: 500;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 10px;
+  animation: fadeInOverlay 0.3s ease-in-out;
+}
+
+.mini-spinner {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  border: 4px solid transparent;
+  border-top: 4px solid #ff6a00;
+  border-right: 4px solid #1281d6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
