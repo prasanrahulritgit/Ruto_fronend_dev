@@ -12,8 +12,7 @@ import Navbar from './components/Navbar/Navbar';
 import DeviceList from './components/DeviceList/DeviceList';
 import VideoStream from './pages/VideoStream/VideoStream';
 import Audio from './pages/Audio/Audio';
-import Thermal from './pages/Thermal/Thermal';
-import Camera from './pages/Camera/Camera';
+import ThermoCam from './pages/ThermoCam/ThermoCam';
 import LoginSignupPage from './components/Auth/LoginSignupPage';
 import Settings from './pages/Settings/Settings';
 import Debugger from './pages/Debugger/Debugger';
@@ -29,11 +28,10 @@ function LayoutWithSidebar() {
           <Routes>
             <Route path="/videostream" element={<VideoStream />} />
             <Route path="/audio"       element={<Audio />} />
-            <Route path="/thermal"     element={<Thermal />} />
-            <Route path="/camera"      element={<Camera />} />
-            <Route path="/debugger"      element={<Debugger />} />
+            <Route path="/thermocam"   element={<ThermoCam />} />
+            <Route path="/debugger"    element={<Debugger />} />
             <Route path="/settings"    element={<Settings />} />
-            <Route path="/UsbIp"    element={<UsbIp />} />
+            <Route path="/UsbIp"       element={<UsbIp />} />
           </Routes>
         </div>
       </div>
